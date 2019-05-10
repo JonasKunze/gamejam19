@@ -41,7 +41,11 @@ public class Enemy : MonoBehaviour
         {
             currentWayPoint++;
             if (currentWayPoint == wayPoints.Length)
+            {
                 LastWaypointReached();
+                return;
+            }
+
             toNextWaypoint = GetNextWaypointDelta();
         }
 
@@ -52,9 +56,9 @@ public class Enemy : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
     private Vector3 GetNextWaypointDelta()
     {
         return wayPoints[currentWayPoint].position - transform.position;
-        
     }
 }
