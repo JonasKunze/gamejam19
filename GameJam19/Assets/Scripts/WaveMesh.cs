@@ -39,6 +39,7 @@ public class WaveMesh : MonoBehaviour
     public void CreateMesh()
     {
         meshFilter = GetComponent<MeshFilter>();
+        meshFilter.sharedMesh = new Mesh();
         mesh = meshFilter.sharedMesh;
         mesh.Clear();
 
@@ -57,15 +58,16 @@ public class WaveMesh : MonoBehaviour
     
     private void initMesh()
     {
-        Mesh mesh = new Mesh();
         var vertices = new Vector3[xSize * ySize];
         var triangles = new int[6 * (xSize - 1) * (ySize - 1)];
+        var uvCoords = new Vector2[xSize * ySize];
         for (uint x = 0; x < xSize; x++)
         {
             for (uint y = 0; y < ySize; y++)
             {
                 vertices[x * ySize + y] = new Vector3((x - xSize / 2.0f) * scaleX, currentAmplitudes[x * ySize + y],
                     (y - ySize / 2.0f) * scaleY);
+                uvCoords[x * ySize + y] = new Vector2(x / (float)xSize, y / (float)ySize);
             }
         }
 
@@ -95,6 +97,7 @@ public class WaveMesh : MonoBehaviour
         mesh.Clear();
         meshFilter.sharedMesh.vertices = vertices;
         meshFilter.sharedMesh.triangles = triangles;
+        meshFilter.sharedMesh.uv = uvCoords;
         meshFilter.sharedMesh.RecalculateBounds();
         meshFilter.sharedMesh.RecalculateNormals();
     }
