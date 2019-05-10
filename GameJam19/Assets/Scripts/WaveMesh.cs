@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class WaveMesh : MonoBehaviour
 {
+	[SerializeField]
     private uint xSize = 20;
+    [SerializeField]
     private uint ySize = 20;
 
     private float scaleX = 0.5f;
@@ -16,12 +18,17 @@ public class WaveMesh : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        meshFilter = GetComponent<MeshFilter>();
-        mesh = meshFilter.mesh;
-
-        initMesh();
+        CreateMesh();
     }
 
+    public void CreateMesh()
+    {
+	    meshFilter = GetComponent<MeshFilter>();
+	    mesh = meshFilter.sharedMesh;
+	    mesh.Clear();
+
+	    initMesh();;
+    }
     // Update is called once per frame
     void Update()
     {
