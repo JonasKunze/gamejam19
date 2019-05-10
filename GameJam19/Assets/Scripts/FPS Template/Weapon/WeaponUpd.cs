@@ -24,19 +24,4 @@ public class WeaponUpd : Photon.MonoBehaviour {
 		if (localWeapons.childCount>id)localWeapons.GetChild(id).gameObject.SetActive(true);
 		if (onlineWeapons.childCount>id)onlineWeapons.GetChild(id).gameObject.SetActive(true);
 	}
-	void oldweaponupdate(){
-		int id=weapon.id;
-		if(id != lastweapon.id){
-				//if(lastweapon.id>=localWeapons.childCount)lastweapon=null;
-				if(lastweapon && lastweapon.id>=0 && lastweapon.id < localWeapons.childCount){
-					//Debug.Log("weaponid: " +id);
-					if (onlineWeapons)onlineWeapons.GetChild(lastweapon.id).gameObject.SetActive(false);
-					if (localWeapons)localWeapons.GetChild(lastweapon.id).gameObject.SetActive(false);
-					}
-				if (localWeapons.childCount>id)localWeapons.GetChild(id).gameObject.SetActive(true);
-				if (onlineWeapons.childCount>id)onlineWeapons.GetChild(id).gameObject.SetActive(true);
-
-				lastweapon.id=id;
-		}
-	}
 }

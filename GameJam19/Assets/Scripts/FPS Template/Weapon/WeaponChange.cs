@@ -6,12 +6,14 @@ public class WeaponChange : Photon.MonoBehaviour {
 
 	public Weapon weapon;
 	public WeaponSystem weaponSystem;
+	public bool cheatallweapons=true;
 
 	public bool on;
 	// Use this for initialization
 	void Start () {
 		on=false;
 		if(!photonView.isMine) this.enabled=false;
+		if (cheatallweapons) on = true;
 	}
 	
 	// Update is called once per frame
