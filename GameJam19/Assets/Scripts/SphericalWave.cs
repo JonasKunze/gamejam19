@@ -51,49 +51,9 @@ public class WavePhysics : MonoBehaviour
         return nextAmplitudes[x * ySize + y];
     }
 
-    private void setAmplitude(uint x, uint y, double value)
-    {
-        currentAmplitudes[x * ySize + y] = value;
-    }
 
-    private void update(double deltaT)
-    {
-        for (int x = 1; x < xSize - 1; ++x)
-        {
-            for (int y = 1; y < ySize - 1; ++y)
-            {
-                double force = 0;
-                for (int a = -1; a < 2; ++a)
-                {
-                    for (int b = -1; b < 2; ++b)
-                    {
-                        double difference = currentAmplitudes[(x + a) * ySize + y + b] -
-                                            currentAmplitudes[x * ySize + y];
-                        if (Mathf.Abs(x) + Mathf.Abs(y) == 2)
-                        {
-                            force += twoSquareHalf * difference;
-                        }
-                        else
-                        {
-                            force += difference;
-                        }
-                    }
-                }
 
-                double velocity = velocities[x * ySize + y];
-                force = force * springConstant - velocity * friction;
-                velocity += deltaT * force;
-
-                nextAmplitudes[x * ySize + y] = currentAmplitudes[x * ySize + y] + velocity * deltaT;
-                velocities[x * ySize + y] = velocity;
-            }
-        }
-
-        for (int i = 0; i < xSize * ySize; ++i)
-        {
-            currentAmplitudes[i] = nextAmplitudes[i];
-        }
-    }
+    
 
 /*private void setNodes(Vector<Variant> voxels, int index) {
 	for (int x = 1; x < xSize - 1; ++x) {
