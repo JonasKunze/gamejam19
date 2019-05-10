@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Experimental.PlayerLoop;
 
 public class WaveMesh : MonoBehaviour
 {
@@ -17,22 +20,35 @@ public class WaveMesh : MonoBehaviour
     private float[] velocities;
 
     [SerializeField] private float stomplitude = 10;
+    [SerializeField] private float frequency;
 
     [SerializeField] private int numberOfWaves;
 
     private Mesh mesh;
     private MeshFilter meshFilter;
 
+    public struct SineSourceInfo
+    {
+        public Vector2 position;
+        public float amplitude;
+        public float frequency;
+        public float timeRemaining;
+    }
+
+    private List<SineSourceInfo> sineWaves;
+
     // Start is called before the first frame update
     void Start()
     {
+        sineWaves = new List<SineSourceInfo>();
         CreateMesh();
         for (int i = 0; i < numberOfWaves; i++)
         {
             int randX = Random.Range(-(int) ((xSize - 5) / 2), (int) ((xSize - 5) / 2));
             int randY = Random.Range(-(int) ((ySize - 5) / 2), (int) ((ySize - 5) / 2));
             float randAmplitude = Random.Range(0.1f, 0.5f);
-            simpleStomp(new Vector2(randX, randY), randAmplitude);
+            //simpleStomp(new Vector2(randX, randY), randAmplitude);
+            StartSineSource(new Vector2(randX, randY), stomplitude, frequency, 60);
         }
     }
 
@@ -55,7 +71,7 @@ public class WaveMesh : MonoBehaviour
 
         initMesh();
     }
-    
+
     private void initMesh()
     {
         var vertices = new Vector3[xSize * ySize];
@@ -67,7 +83,7 @@ public class WaveMesh : MonoBehaviour
             {
                 vertices[x * ySize + y] = new Vector3((x - xSize / 2.0f) * scaleX, currentAmplitudes[x * ySize + y],
                     (y - ySize / 2.0f) * scaleY);
-                uvCoords[x * ySize + y] = new Vector2(x / (float)xSize, y / (float)ySize);
+                uvCoords[x * ySize + y] = new Vector2(x / (float) xSize, y / (float) ySize);
             }
         }
 
@@ -103,15 +119,43 @@ public class WaveMesh : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        updateWaves(Time.deltaTime);
+        updateWaves(Time.fixedDeltaTime);
+        UpdateSineSources();
 
 // wall
 
         /*for stonePos in
         stones:
         waves.setAmplitude(stonePos.x, stonePos.y, 0)*/
+    }
+
+    private void UpdateSineSources()
+    {
+        var wavesToBeRemoved = new List<SineSourceInfo>();
+        for (int i = 0; i < sineWaves.Count; i++)
+        {
+            var sineWave = sineWaves[i];
+            sineWave.timeRemaining -= Time.fixedDeltaTime;
+            if (sineWave.timeRemaining < 0)
+            {
+                wavesToBeRemoved.Add(sineWave);
+                continue;
+            }
+            
+            uint indexX = (uint) sineWave.position.x;
+            uint indexZ = (uint) sineWave.position.y;
+            Debug.Log(sineWave.frequency * sineWave.timeRemaining);
+            float amplitude = sineWave.amplitude * Mathf.Sin(sineWave.frequency * sineWave.timeRemaining);
+            setAmplitude(indexX, indexZ, amplitude);
+            sineWaves[i] = sineWave;
+        }
+
+        foreach (var waveToBeRemoved in wavesToBeRemoved)
+        {
+            sineWaves.Remove(waveToBeRemoved);
+        }
     }
 
     private void setAmplitude(uint x, uint y, float value)
@@ -200,10 +244,16 @@ public class WaveMesh : MonoBehaviour
         return new Vector3(-xSize / 2 + indexX, position.y, -ySize / 2 + indexZ);
     }
 
+    Vector2 GetCorrectPosition(Vector2 pos)
+    {
+        return new Vector2((uint) (pos.x + xSize / 2.0f), (uint)(pos.y + ySize / 2.0f));
+    }
+
     Vector3 simpleStomp(Vector2 position, float amplitudeFactor = 1)
     {
-        uint indexX = (uint) (position.x + xSize / 2.0f);
-        uint indexZ = (uint) (position.y + ySize / 2.0f);
+        Vector2 correctPos = GetCorrectPosition(position);
+        uint indexX = (uint) correctPos.x;
+        uint indexZ = (uint) correctPos.y;
 
 
         if ((indexX + 0 < 1) || (indexZ + 0 < 1) || (indexX + 0 > xSize - 2) || (indexZ + 0 > ySize - 2))
@@ -214,4 +264,16 @@ public class WaveMesh : MonoBehaviour
         //lastStompCenterIndices = new Vector2(indexX, indexZ);
         return new Vector3(-xSize / 2 + indexX, position.y, -ySize / 2 + indexZ);
     }
+
+    private void StartSineSource(Vector2 position, float amplitude, float frequency, float timeSeconds)
+    {
+
+
+        sineWaves.Add(new SineSourceInfo
+        {
+            position = GetCorrectPosition(position), amplitude = amplitude, frequency = frequency,
+            timeRemaining = timeSeconds
+        });
+    }
+
 }
