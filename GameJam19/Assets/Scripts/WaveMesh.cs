@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.PlayerLoop;
@@ -27,29 +28,47 @@ public class WaveMesh : MonoBehaviour
     private Mesh mesh;
     private MeshFilter meshFilter;
 
+    [Serializable]
     public struct SineSourceInfo
     {
-        public Vector2 position;
+        public Vector2Int position;
         public float amplitude;
         public float frequency;
-        public float timeRemaining;
+        [HideInInspector] public float startTime;
+        [HideInInspector] public float endTime;
+        [Range(0, 600)] public float duration;
+        [HideInInspector] public float currentTime;
+        public bool isInfinite;
+
+        public void Init(uint sizeX, uint sizeY)
+        {
+            //position = GetCorrectPosition(position, sizeX, sizeY);
+            startTime = 0;
+            currentTime = startTime;
+            endTime = startTime + duration;
+        }
     }
 
-    private List<SineSourceInfo> sineWaves;
+    [SerializeField] private List<SineSourceInfo> sineWaves;
 
     // Start is called before the first frame update
     void Start()
     {
-        sineWaves = new List<SineSourceInfo>();
         CreateMesh();
-        for (int i = 0; i < numberOfWaves; i++)
+
+        foreach (var sineWave in sineWaves)
+        {
+            sineWave.Init(xSize, ySize);
+        }
+        
+        /*for (int i = 0; i < numberOfWaves; i++)
         {
             int randX = Random.Range(-(int) ((xSize - 5) / 2), (int) ((xSize - 5) / 2));
             int randY = Random.Range(-(int) ((ySize - 5) / 2), (int) ((ySize - 5) / 2));
             float randAmplitude = Random.Range(0.1f, 0.5f);
             //simpleStomp(new Vector2(randX, randY), randAmplitude);
             StartSineSource(new Vector2(randX, randY), stomplitude, frequency, 60);
-        }
+        }*/
     }
 
     public void CreateMesh()
@@ -137,17 +156,17 @@ public class WaveMesh : MonoBehaviour
         for (int i = 0; i < sineWaves.Count; i++)
         {
             var sineWave = sineWaves[i];
-            sineWave.timeRemaining -= Time.fixedDeltaTime;
-            if (sineWave.timeRemaining < 0)
+            sineWave.currentTime += Time.fixedDeltaTime;
+            if (!sineWave.isInfinite && sineWave.currentTime > sineWave.endTime)
             {
                 wavesToBeRemoved.Add(sineWave);
                 continue;
             }
-            
+
             uint indexX = (uint) sineWave.position.x;
             uint indexZ = (uint) sineWave.position.y;
-            Debug.Log(sineWave.frequency * sineWave.timeRemaining);
-            float amplitude = sineWave.amplitude * Mathf.Sin(sineWave.frequency * sineWave.timeRemaining);
+            float amplitude = sineWave.amplitude *
+                              Mathf.Sin(sineWave.frequency * (sineWave.currentTime - sineWave.startTime));
             setAmplitude(indexX, indexZ, amplitude);
             sineWaves[i] = sineWave;
         }
@@ -244,14 +263,14 @@ public class WaveMesh : MonoBehaviour
         return new Vector3(-xSize / 2 + indexX, position.y, -ySize / 2 + indexZ);
     }
 
-    Vector2 GetCorrectPosition(Vector2 pos)
+    public static Vector2 GetCorrectPosition(Vector2 pos, uint sizeX, uint sizeY)
     {
-        return new Vector2((uint) (pos.x + xSize / 2.0f), (uint)(pos.y + ySize / 2.0f));
+        return new Vector2(pos.x - sizeX / 2.0f, pos.y - sizeY / 2.0f);
     }
 
     Vector3 simpleStomp(Vector2 position, float amplitudeFactor = 1)
     {
-        Vector2 correctPos = GetCorrectPosition(position);
+        Vector2 correctPos = GetCorrectPosition(position, xSize, ySize);
         uint indexX = (uint) correctPos.x;
         uint indexZ = (uint) correctPos.y;
 
@@ -265,15 +284,27 @@ public class WaveMesh : MonoBehaviour
         return new Vector3(-xSize / 2 + indexX, position.y, -ySize / 2 + indexZ);
     }
 
-    private void StartSineSource(Vector2 position, float amplitude, float frequency, float timeSeconds)
+    /*private void StartSineSource(Vector2 position, float amplitude, float frequency, float timeSeconds, bool isInfinite)
     {
-
-
         sineWaves.Add(new SineSourceInfo
         {
-            position = GetCorrectPosition(position), amplitude = amplitude, frequency = frequency,
-            timeRemaining = timeSeconds
+            position = GetCorrectPosition(position, xSize, ySize), amplitude = amplitude, frequency = frequency,
+            currentTime = Time.fixedTime, startTime = Time.fixedTime, endTime = Time.fixedTime + timeSeconds, isInfinite = isInfinite
         });
-    }
+    }*/
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        foreach (var sineWave in sineWaves)
+        {
+            Vector2 correctPos = GetCorrectPosition(sineWave.position, xSize, ySize);
+            correctPos.x *= scaleX;
+            correctPos.y *= scaleY;
+            float y = gameObject.transform.position.y;
+            Vector3 worldPos = new Vector3(correctPos.x, y, correctPos.y);
+            Debug.Log(worldPos);
+            Gizmos.DrawSphere(worldPos, 1.0f);
+        }
+    }
 }

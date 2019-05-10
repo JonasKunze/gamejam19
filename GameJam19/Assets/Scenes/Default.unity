@@ -1024,6 +1024,131 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1102604649}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[0].position.x
+      value: 57
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[0].position.y
+      value: 58
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[0].amplitude
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[0].frequency
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[0].isInfinite
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[0].duration
+      value: 81
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[1].position.x
+      value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[1].position.y
+      value: 58
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[1].amplitude
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[1].frequency
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[1].duration
+      value: 81
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[1].isInfinite
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[2].position.x
+      value: 57
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[2].position.y
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[2].amplitude
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[2].frequency
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[2].duration
+      value: 81
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[2].isInfinite
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[3].position.x
+      value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[3].position.y
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[3].amplitude
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[3].frequency
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[3].duration
+      value: 81
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
+        type: 3}
+      propertyPath: sineWaves.Array.data[3].isInfinite
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e, type: 3}
 --- !u!1 &1785245464
