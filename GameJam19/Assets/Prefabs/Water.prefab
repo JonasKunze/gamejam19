@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2693463168229450006}
   - component: {fileID: 2693463168229450003}
   - component: {fileID: 2693463168229450002}
+  - component: {fileID: 4096242}
   m_Layer: 0
   m_Name: Water
   m_TagString: Untagged
@@ -91,12 +92,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5373c92b04fb67148b9eb1a91ce9cacd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xSize: 20
-  ySize: 20
-  springConstant: 10
-  friction: 0.3
-  stomplitude: 3
-  numberOfWaves: 1
+  xSize: 100
+  ySize: 100
+  springConstant: 20
+  friction: 0.2
+  stomplitude: 0.7
+  frequency: 7
+  numberOfWaves: 5
 --- !u!64 &2693463168229450002
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -111,3 +113,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 0}
+--- !u!114 &4096242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2693463168229450007}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1da353243062479a9b31c85074a796b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedMaterial: {fileID: 2100000, guid: 656fde119942645aa8e062e04c119aa1, type: 2}
+  waterQuality: 2
+  edgeBlend: 1

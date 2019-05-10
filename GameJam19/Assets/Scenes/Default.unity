@@ -120,27 +120,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &4096241 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2693463168229450007, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1780531599}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4096242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4096241}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1da353243062479a9b31c85074a796b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sharedMaterial: {fileID: 2100000, guid: 656fde119942645aa8e062e04c119aa1, type: 2}
-  waterQuality: 2
-  edgeBlend: 1
 --- !u!20 &83272134 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 2000000, guid: 5e9e851c0e142814dac026a256ba2ac0,
@@ -985,11 +964,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Water
       objectReference: {fileID: 0}
-    - target: {fileID: 2693463168229450007, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2693463168229450000, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1045,51 +1019,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2693463168229450001, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: c5714a8014a0af546bee9e92ca47aa24, type: 2}
     - target: {fileID: 2693463168229450006, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1102604649}
-    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
-        type: 3}
-      propertyPath: xSize
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
-        type: 3}
-      propertyPath: ySize
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
-        type: 3}
-      propertyPath: numberOfWaves
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
-        type: 3}
-      propertyPath: stomplitude
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
-        type: 3}
-      propertyPath: friction
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
-        type: 3}
-      propertyPath: springConstant
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 2693463168229450003, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e,
-        type: 3}
-      propertyPath: frequency
-      value: 7
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d5fd00edb8f7004cbe6ec95d7b5ca5e, type: 3}
 --- !u!1 &1785245464
