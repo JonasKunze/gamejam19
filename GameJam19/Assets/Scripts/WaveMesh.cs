@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Experimental.PlayerLoop;
 using Random = System.Random;
@@ -52,9 +53,26 @@ public class WaveMesh : MonoBehaviour
 
     [SerializeField] private List<SineSourceInfo> sineWaves;
 
+    private static WaveMesh instance;
+    
+    [MenuItem("Debug/Splash %t")]
+    static void DoSomething()
+    {
+        WaveMesh waveMesh = WaveMesh.Instance();
+        if (waveMesh)
+            waveMesh.Splash(new Vector3(0,0, 7), 1);
+    }
+
+    public static WaveMesh Instance()
+    {
+        return instance;
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Assert(instance == null);
+        instance = this;
         CreateMesh();
 
         foreach (var sineWave in sineWaves)
@@ -164,7 +182,7 @@ public class WaveMesh : MonoBehaviour
                 continue;
             }
 
-            Vector2Int indices = WorldPositionToMeshIndices(new Vector2(sineWave.position.x, sineWave.position.y));
+            Vector2Int indices = WorldPositionToMeshIndices(new Vector3(sineWave.position.x, 0, sineWave.position.y));
             //uint indexX = (uint) sineWave.position.x;
             //uint indexZ = (uint) sineWave.position.y;
             float amplitude = sineWave.amplitude *
@@ -246,10 +264,10 @@ public class WaveMesh : MonoBehaviour
 
     
 
-    private Vector2Int WorldPositionToMeshIndices(Vector2 worldPosition)
+    private Vector2Int WorldPositionToMeshIndices(Vector3 worldPosition)
     {
         int x = (int) (worldPosition.x / scaleX + xSize / 2.0f);
-        int y = (int) (worldPosition.y / scaleY + ySize / 2.0f);
+        int y = (int) (worldPosition.z / scaleY + ySize / 2.0f);
 
         x = (int) Mathf.Clamp(x, 0, xSize - 1);
         y = (int) Mathf.Clamp(y, 0, ySize - 1);
@@ -260,22 +278,43 @@ public class WaveMesh : MonoBehaviour
     public void Splash(Vector3 worldPosition, float intensity)
     {
         intensity = Mathf.Clamp01(intensity);
-        simpleStomp(worldPosition, intensity);
+        Vector2 indices = WorldPositionToMeshIndices(worldPosition);
+        extendedStomp(indices, intensity);
+        worldPosition.y = transform.position.y;
+        ParticleCreator.Instance().Splash(worldPosition);
     }
 
+    private void extendedStomp(Vector2 position, float amplitudeFactor = 1)
+    {
+        float betterStomplitude = 2; 
+        
+        List<Vector2> stompPositions = new List<Vector2>();
+        //stompPositions.Add(new Vector2(position.x, position.y));
+        stompPositions.Add(new Vector2(position.x+1, position.y));
+        stompPositions.Add(new Vector2(position.x-1, position.y));
+        stompPositions.Add(new Vector2(position.x, position.y+1));
+        stompPositions.Add(new Vector2(position.x, position.y-1));
+
+        foreach (var stompPos in stompPositions)
+        {
+            if ((stompPos.x <= 0) || (stompPos.x >= xSize) || (stompPos.y <= 0) || (stompPos.y >= ySize))
+                continue;
+            setAmplitude((uint)stompPos.x, (uint)stompPos.y, betterStomplitude * amplitudeFactor);
+        }
+    }
+    
     Vector3 simpleStomp(Vector2 position, float amplitudeFactor = 1)
     {
-        Vector2 indices = WorldPositionToMeshIndices(position);
-        float betterStomplitude = 10; 
+        float betterStomplitude = 5; 
 
-            Debug.LogError(indices);
+//            Debug.LogError(indices);
 //        if ((indexX + 0 < 1) || (indexZ + 0 < 1) || (indexX + 0 > xSize - 2) || (indexZ + 0 > ySize - 2))
 //            Debug.Assert(false);
-        setAmplitude((uint)indices.x, (uint)indices.y, betterStomplitude * amplitudeFactor);
+        setAmplitude((uint)position.x, (uint)position.y, betterStomplitude * amplitudeFactor);
 
 
         //lastStompCenterIndices = new Vector2(indexX, indexZ);
-        return new Vector3(-xSize / 2f + indices.x, position.y, -ySize / 2f + indices.y);
+        return new Vector3(-xSize / 2f + position.x, position.y, -ySize / 2f + position.y);
     }
     
     

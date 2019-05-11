@@ -23,6 +23,6 @@ public class ParticleCreator : MonoBehaviour
 
     public void Splash(Vector3 position)
     {
-        Instantiate(waterParticles, position, Quaternion.identity);
+        Instantiate(waterParticles, position, waterParticles.transform.rotation);
     }
 }
