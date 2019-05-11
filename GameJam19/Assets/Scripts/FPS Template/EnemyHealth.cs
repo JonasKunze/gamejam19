@@ -19,22 +19,20 @@ public class EnemyHealth : Photon.MonoBehaviour {
 	//private IKControl ikControl;
 	private bool isSinking;
 	private bool damaged;
-	//PlayerScore score;
-    
-	//public Transform Ui;
 
 	// Called when script awake in editor
 	void Awake() {
 		audioSource = GetComponent<AudioSource>();
 		capsuleCollider = GetComponent<CapsuleCollider>();
-		//ikControl = GetComponentInChildren<IKControl>();
 		currentHealth = startingHealth;
 	}
 
 	// Update is called once per frame
 	void Update() {
 
-		if (isSinking) {
+		if (isSinking)
+		{
+			transform.localScale = Vector3.one * Mathf.Lerp(transform.localScale.x, 0.1f, 0.1f);
 			transform.Translate(Vector3.down * sinkSpeed * Time.deltaTime);
 		}
 	}
@@ -70,12 +68,12 @@ public class EnemyHealth : Photon.MonoBehaviour {
 
         //ikControl.enabled = false;
 
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+/*        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players) {
             if (player.name.Equals(enemyName)) {
                 player.GetComponent<ConvictionController>().GenerateConviction(false, karmaValue);
             }
-        }
+        }*/
 
 		StartCoroutine("StartSinking", 2.5f);
 	}
@@ -106,13 +104,13 @@ public class EnemyHealth : Photon.MonoBehaviour {
         StartCoroutine(DestroyEnemyObject(2f));
 	}
 
-	// Synchronize data on the network
+/*	// Synchronize data on the network
 	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
 		if (stream.isWriting) {
 			stream.SendNext(currentHealth);
 		} else {
 			currentHealth = (int)stream.ReceiveNext();
 		}
-	}
+	}*/
 
 }

@@ -30,6 +30,9 @@ public class WaveMesh : MonoBehaviour
     private Mesh mesh;
     private MeshFilter meshFilter;
 
+    private Vector3[] vertices;
+    
+    
     [Serializable]
     public struct SineSourceInfo
     {
