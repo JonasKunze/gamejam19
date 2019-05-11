@@ -11,10 +11,10 @@ namespace DefaultNamespace
         [SerializeField] private WayPoint[] wayPoints;
         [SerializeField] private List<GameObject> enemies;
         [SerializeField] private uint nMicroWaves;
-        [SerializeField] private uint tMicroWaves;
 
-        IEnumerator Spawning()
+        IEnumerator Spawning(float waveDuration)
         {
+            float tMicroWaves = waveDuration / (nMicroWaves + 1);
             for (uint i = 0; i < nMicroWaves; ++i){
                 foreach (var prefab in enemies)
                 {
@@ -25,9 +25,9 @@ namespace DefaultNamespace
             
         }
 
-        public void StartSpawning()
+        public void StartSpawning(uint waveDuration)
         {
-            StartCoroutine(Spawning());
+            StartCoroutine(Spawning(waveDuration));
         }
     }
 }
