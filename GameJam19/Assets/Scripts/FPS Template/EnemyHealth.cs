@@ -17,6 +17,7 @@ public class EnemyHealth : Photon.MonoBehaviour {
 
 	private AudioSource audioSource;
 	private CapsuleCollider capsuleCollider;
+	private SphereCollider sphereCollider;
 	//private IKControl ikControl;
 	[FormerlySerializedAs("isSinking")] public bool isDead;
 	private bool damaged;
@@ -25,6 +26,7 @@ public class EnemyHealth : Photon.MonoBehaviour {
 	void Awake() {
 		audioSource = GetComponent<AudioSource>();
 		capsuleCollider = GetComponentInChildren<CapsuleCollider>();
+		sphereCollider =GetComponentInChildren<SphereCollider>();
 		currentHealth = startingHealth;
 	}
 
@@ -49,7 +51,6 @@ public class EnemyHealth : Photon.MonoBehaviour {
 		{
 			audioSource.clip = hurtClip;
 			audioSource.Play();
-
 		}
 		
 		if (currentHealth <= 0) {
@@ -61,6 +62,7 @@ public class EnemyHealth : Photon.MonoBehaviour {
 	[PunRPC]
 	void Death(string enemyName) {
 		capsuleCollider.isTrigger = true;
+		sphereCollider.isTrigger = true;
 
 		//anim.SetTrigger("IsDead");
 
@@ -69,32 +71,16 @@ public class EnemyHealth : Photon.MonoBehaviour {
 
         //ikControl.enabled = false;
 
-/*        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players) {
             if (player.name.Equals(enemyName)) {
                 player.GetComponent<ConvictionController>().GenerateConviction(false, karmaValue);
             }
-        }*/
+        }
 
 		StartCoroutine("StartSinking", 2.5f);
 	}
 
-	// The RPC function to destory enemy game object
-	[PunRPC]
-	IEnumerator DestroyEnemyObject(float time) {
-		yield return new WaitForSeconds(time);
-        if (transform.parent.name.Equals("Pepegas")) {
-            EnemyManager.deadPepegas.Enqueue(gameObject);
-            capsuleCollider.isTrigger = false;
-            GetComponent<Rigidbody>().isKinematic = false;
-            isDead = false;
-            gameObject.SetActive(false);
-            currentHealth = startingHealth;
-        } else {
-            Destroy(gameObject);
-        }
-        
-	}
 
 	// The RPC function to start sink the enemy game object
 	[PunRPC]
@@ -105,6 +91,24 @@ public class EnemyHealth : Photon.MonoBehaviour {
         StartCoroutine(DestroyEnemyObject(2f));
 	}
 
+	// The RPC function to destory enemy game object
+	[PunRPC]
+	IEnumerator DestroyEnemyObject(float time) {
+		yield return new WaitForSeconds(time);
+		//if (transform.parent.name.Equals("Pepegas")) {
+		//EnemyManager.deadPepegas.Enqueue(gameObject);
+		capsuleCollider.isTrigger = false;
+		sphereCollider.isTrigger = false;
+		GetComponent<Rigidbody>().isKinematic = false;
+		//isDead = false;
+		gameObject.SetActive(false);
+		currentHealth = startingHealth;
+		//} else {
+		//Destroy(gameObject);
+		//}
+        
+	}
+	
 /*	// Synchronize data on the network
 	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
 		if (stream.isWriting) {
