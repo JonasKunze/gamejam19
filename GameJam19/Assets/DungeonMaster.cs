@@ -4,39 +4,48 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using DefaultNamespace;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class DungeonMaster : MonoBehaviour
 {
     public static DungeonMaster Instance;
     enum GameState
     {
+        Init,
         Start,
-        Idle,
+        Wave,
         ShoppingTour,
-        Wave
+        Victory,
+        GameOver
     };
 
 
     [SerializeField] private uint NumberOfWaves;
     [SerializeField] private EnemySpawner[] EnemySpawners;
-    private int currentActiveSpawners;
     [SerializeField] private Shop shop;
-    private uint currentWave;
     private GameState gameState;
     [SerializeField] private uint TimeStart;
     [SerializeField] private uint TimeWaveDuration;
     [SerializeField] private uint TimePause;
-    private int timer;
+    private uint currentWave;
+    private int currentActiveSpawners;
     private int currentNumberOfEnemies;
 
 
     private void Awake()
     {
         Instance = this;
-        gameState = GameState.Start;
+        gameState = GameState.Init;
         currentWave = 0;
         currentNumberOfEnemies = 0;
         currentActiveSpawners = 0;
+    }
+    
+    void Start()
+    {
+        gameState = GameState.Start;
+        // TODO Show Start Screen
+        StartCoroutine(CORStartNewWave(TimeStart));
     }
 
     IEnumerator CORStartNewWave(uint TimeStart)
@@ -45,53 +54,31 @@ public class DungeonMaster : MonoBehaviour
         StartNewWave();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        StartCoroutine(CORStartNewWave(TimeStart));
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
-    private void EnterShop()
-    {
-        gameState = GameState.ShoppingTour;
-    }
-
     private void StartNewWave()
     {
-        if (currentWave < NumberOfWaves)
-        {
-            currentWave++;
-            Debug.Log("Wave " + currentWave + " started");
-            gameState = GameState.Wave;
-
-            foreach (EnemySpawner spawner in EnemySpawners)
-            {
-                spawner.StartSpawning(TimeWaveDuration);
-            }
-
-            currentActiveSpawners = EnemySpawners.Length;
-
-        }
-    }
-
-    private void EndCurrentWave()
-    {
+        gameState = GameState.Wave;
         currentNumberOfEnemies = 0;
-        currentActiveSpawners = 0;
-        gameState = GameState.Idle;
-        Shop.OpenShopCanvas();
+        currentWave++;
+        Debug.Log("Wave " + currentWave + " started");
+
+        foreach (EnemySpawner spawner in EnemySpawners)
+        {
+            spawner.StartSpawning(TimeWaveDuration);
+        }
+
+        currentActiveSpawners = EnemySpawners.Length;
     }
 
-    public bool IsWaveDone()
+    private bool IsWaveDone()
     {
         if (gameState != GameState.Wave) return true;
 
         return ((currentActiveSpawners <= 0) && (currentNumberOfEnemies <= 0));
+    }
+
+    public void RegisterPlayerDead()
+    {
+        GameOver();
     }
 
     public void RegisterEnemyBorn()
@@ -105,7 +92,6 @@ public class DungeonMaster : MonoBehaviour
         if (IsWaveDone())
         {
             EndCurrentWave();
-            StartCoroutine(CORStartNewWave(TimePause));
         }
     }
     public void RegisterSpawnerIsDone()
@@ -114,7 +100,44 @@ public class DungeonMaster : MonoBehaviour
         if (IsWaveDone())
         {
             EndCurrentWave();
-            StartCoroutine(CORStartNewWave(TimePause));
         }
+    }
+    
+    private void EndCurrentWave()
+    {
+        currentNumberOfEnemies = 0;
+        currentActiveSpawners = 0;
+        if (currentWave < NumberOfWaves)
+        {
+            StartShopppingTour();
+        }
+        else
+        {
+            Victory();
+        }
+    }
+
+    private void StartShopppingTour()
+    {
+        gameState = GameState.ShoppingTour;
+        Shop.OpenShopCanvas();
+    }
+    
+    private void EndShopppingTour()
+    {
+        // TODO Called by canvas button
+        Shop.CloseShopCanvas(); 
+        StartNewWave();
+    }
+    private void Victory()
+    {
+        // TODO Show Victory
+        gameState = GameState.Victory;
+    }
+
+    private void GameOver()
+    {
+        // TODO Show GameOver
+        gameState = GameState.GameOver;
     }
 }
