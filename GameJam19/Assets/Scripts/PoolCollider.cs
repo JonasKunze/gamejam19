@@ -9,7 +9,7 @@ public class PoolCollider : MonoBehaviour
     private static PoolCollider instance;
     
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Debug.Assert(instance == null);
         instance = this;
