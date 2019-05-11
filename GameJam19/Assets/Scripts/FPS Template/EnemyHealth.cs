@@ -12,6 +12,8 @@ public class EnemyHealth : Photon.MonoBehaviour {
 	public AudioClip deathClip;
 	public AudioClip hurtClip;
 
+	public Enemy enemy;
+	
 	public Scrollbar HealthDisplay;
     //public Animator anim;
 
@@ -59,6 +61,8 @@ public class EnemyHealth : Photon.MonoBehaviour {
 		if (currentHealth <= 0) {
             photonView.RPC("Death", PhotonTargets.All, enemyName);
 		}
+
+		enemy.OnDamageTaken();
 	}
 
 	// The RPC function for enemy death

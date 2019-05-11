@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     private float waypointSize = 0.5f;
     private Vector3 currentTarget;
 
-    [SerializeField] [Range(0.1f, 10)] private float maxVelocity;
+    [SerializeField] [Range(0.1f, 10)] protected float maxVelocity;
 
     public static Enemy Create(GameObject prefab, WayPoint[] wayPoints)
     {
@@ -59,5 +59,10 @@ public class Enemy : MonoBehaviour
     private Vector3 GetNextWaypointDelta()
     {
         return currentTarget - transform.position;
+    }
+
+    public virtual void OnDamageTaken()
+    {
+        
     }
 }
