@@ -22,6 +22,7 @@ public class DungeonMaster : MonoBehaviour
     private uint currentWave;
     private GameState gameState;
     [SerializeField] private uint TimeStart;
+    [SerializeField] private uint TimeWaveDuration;
     private int timer;
 
 
@@ -63,7 +64,7 @@ public class DungeonMaster : MonoBehaviour
 
             foreach (EnemySpawner spawner in EnemySpawners)
             {
-                spawner.StartSpawning();
+                spawner.StartSpawning(TimeWaveDuration);
             }
         }
     }
