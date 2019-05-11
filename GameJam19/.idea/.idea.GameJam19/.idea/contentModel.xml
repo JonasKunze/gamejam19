@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\DEV\Unity\GameJamPoolShooter\gamejam19\gamejam19" t="IncludeRecursive">
+    <e p="C:\Users\APaterno\.Rider2018.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\APaterno\.Rider2018.3\system\resharper-host\Local\Transient\ReSharperHost\v183\SolutionCaches\_GameJam19.995382377.00" t="ExcludeRecursive" />
+    <e p="C:\Users\APaterno\Documents\gamejam19\gamejam19" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
@@ -11,7 +13,6 @@
         <e p="Editor" t="Include">
           <e p="WaveMeshEditor.cs" t="Include" />
         </e>
-        <e p="EscIsQuit.cs" t="Include" />
         <e p="FPS Template" t="Include">
           <e p="Art" t="Include">
             <e p="Fonts" t="Include">
@@ -40,6 +41,7 @@
             <e p="Shaker.cs" t="Include" />
           </e>
         </e>
+        <e p="NoodleActivator.cs" t="Include" />
         <e p="Photon Unity Networking" t="Include">
           <e p="changelog.txt" t="Include" />
           <e p="Editor" t="Include">
@@ -253,8 +255,15 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
+          <e p="DynamicBone" t="Include">
+            <e p="Scripts" t="Include">
+              <e p="DynamicBone.cs" t="Include" />
+              <e p="DynamicBoneCollider.cs" t="Include" />
+            </e>
+          </e>
           <e p="Enemy.cs" t="Include" />
           <e p="EnemySpawner.cs" t="Include" />
+          <e p="EscIsQuit.cs" t="Include" />
           <e p="FPS Template" t="Include">
             <e p="changeFOVbyClick.cs" t="Include" />
             <e p="ColTrigResponse.cs" t="Include" />
@@ -323,8 +332,11 @@
             </e>
             <e p="WorldBoundaries.cs" t="Include" />
           </e>
+          <e p="HealthDisplay.cs" t="Include" />
           <e p="ParticleCreator.cs" t="Include" />
           <e p="PoolCollider.cs" t="Include" />
+          <e p="Pumpgun.cs" t="Include" />
+          <e p="WaterBeam.cs" t="Include" />
           <e p="WaveMesh.cs" t="Include" />
           <e p="WayPoint.cs" t="Include" />
         </e>
@@ -572,11 +584,12 @@
         </e>
       </e>
       <e p="GameJam19.sln" t="IncludeFlat" />
+      <e p="Library" t="ExcludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="packages" t="ExcludeRecursive" />
-      <e p="Temp\bin" t="ExcludeRecursive" />
+      <e p="Temp" t="ExcludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+      </e>
     </e>
-    <e p="C:\Users\manum\.Rider2019.1\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\manum\.Rider2019.1\system\resharper-host\Local\Transient\ReSharperHost\v191\SolutionCaches\_GameJam19.979505571.00" t="ExcludeRecursive" />
   </component>
 </project>
