@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEditor;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Enemy : MonoBehaviour
@@ -44,6 +46,11 @@ public class Enemy : MonoBehaviour
         }
 
         rigid.velocity = maxVelocity * toNextWaypoint.normalized;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawRay(transform.position, transform.position+GetNextWaypointDelta().normalized);
     }
 
     private void LastWaypointReached()
