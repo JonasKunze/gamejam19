@@ -9,8 +9,8 @@ public class WaveMesh : MonoBehaviour
     [SerializeField] private uint xSize = 20;
     [SerializeField] private uint ySize = 20;
 
-    private float scaleX = 0.5f;
-    private float scaleY = 0.5f;
+    [SerializeField] private float scaleX = 0.5f;
+    [SerializeField] private float scaleY = 0.5f;
 
     private float twoSquareHalf;
     [SerializeField] private float springConstant;
@@ -60,7 +60,7 @@ public class WaveMesh : MonoBehaviour
         {
             sineWave.Init(xSize, ySize);
         }
-        
+
         /*for (int i = 0; i < numberOfWaves; i++)
         {
             int randX = Random.Range(-(int) ((xSize - 5) / 2), (int) ((xSize - 5) / 2));
@@ -106,7 +106,7 @@ public class WaveMesh : MonoBehaviour
             }
         }
 
-        int ctr = 0;
+        int triangleIndex = 0;
         for (uint x = 0; x < xSize - 1; x++)
         {
             for (uint y = 0; y < ySize - 1; y++)
@@ -114,25 +114,25 @@ public class WaveMesh : MonoBehaviour
                 uint triX = x * ySize + y;
                 uint triY = (x + 1) * ySize + (y + 1);
                 uint triZ = (x + 1) * ySize + y;
-                triangles[ctr] = (int) triX;
-                triangles[ctr + 1] = (int) triY;
-                triangles[ctr + 2] = (int) triZ;
+                triangles[triangleIndex] = (int) triX;
+                triangles[triangleIndex + 1] = (int) triY;
+                triangles[triangleIndex + 2] = (int) triZ;
 
                 triX = x * ySize + y;
                 triY = x * ySize + (y + 1);
                 triZ = (x + 1) * ySize + (y + 1);
-                triangles[ctr + 3] = (int) triX;
-                triangles[ctr + 4] = (int) triY;
-                triangles[ctr + 5] = (int) triZ;
+                triangles[triangleIndex + 3] = (int) triX;
+                triangles[triangleIndex + 4] = (int) triY;
+                triangles[triangleIndex + 5] = (int) triZ;
 
-                ctr += 6;
+                triangleIndex += 6;
             }
         }
 
-        mesh.Clear();
         meshFilter.sharedMesh.vertices = vertices;
         meshFilter.sharedMesh.triangles = triangles;
         meshFilter.sharedMesh.uv = uvCoords;
+
         meshFilter.sharedMesh.RecalculateBounds();
         meshFilter.sharedMesh.RecalculateNormals();
     }
@@ -163,11 +163,13 @@ public class WaveMesh : MonoBehaviour
                 continue;
             }
 
-            uint indexX = (uint) sineWave.position.x;
-            uint indexZ = (uint) sineWave.position.y;
+            Vector2Int indices = WorldPositionToIndex(new Vector2(sineWave.position.x, sineWave.position.y), xSize,
+                ySize, new Vector2(scaleX, scaleY));
+            //uint indexX = (uint) sineWave.position.x;
+            //uint indexZ = (uint) sineWave.position.y;
             float amplitude = sineWave.amplitude *
                               Mathf.Sin(sineWave.frequency * (sineWave.currentTime - sineWave.startTime));
-            setAmplitude(indexX, indexZ, amplitude);
+            setAmplitude((uint)indices.x, (uint)indices.y, amplitude);
             sineWaves[i] = sineWave;
         }
 
@@ -263,12 +265,12 @@ public class WaveMesh : MonoBehaviour
         return new Vector3(-xSize / 2 + indexX, position.y, -ySize / 2 + indexZ);
     }
 
-    public static Vector2 GetCorrectPosition(Vector2 pos, uint sizeX, uint sizeY)
+    private static Vector2Int WorldPositionToIndex(Vector2 pos, uint sizeX, uint sizeY, Vector2 scale)
     {
-        return new Vector2(pos.x - sizeX / 2.0f, pos.y - sizeY / 2.0f);
+        return new Vector2Int((int)(pos.x / scale.x + sizeX / 2.0f), (int)(pos.y / scale.y + sizeY / 2.0f));
     }
 
-    Vector3 simpleStomp(Vector2 position, float amplitudeFactor = 1)
+    /*Vector3 simpleStomp(Vector2 position, float amplitudeFactor = 1)
     {
         Vector2 correctPos = GetCorrectPosition(position, xSize, ySize);
         uint indexX = (uint) correctPos.x;
@@ -282,7 +284,7 @@ public class WaveMesh : MonoBehaviour
 
         //lastStompCenterIndices = new Vector2(indexX, indexZ);
         return new Vector3(-xSize / 2 + indexX, position.y, -ySize / 2 + indexZ);
-    }
+    }*/
 
     /*private void StartSineSource(Vector2 position, float amplitude, float frequency, float timeSeconds, bool isInfinite)
     {
@@ -298,12 +300,12 @@ public class WaveMesh : MonoBehaviour
         Gizmos.color = Color.green;
         foreach (var sineWave in sineWaves)
         {
-            Vector2 correctPos = GetCorrectPosition(sineWave.position, xSize, ySize);
-            correctPos.x *= scaleX;
-            correctPos.y *= scaleY;
+            //Vector2 correctPos = WorldPositionToIndex(sineWave.position, xSize, ySize, new Vector2(scaleX, scaleY));
+            //correctPos.x *= scaleX;
+            //correctPos.y *= scaleY;
             float y = gameObject.transform.position.y;
-            Vector3 worldPos = new Vector3(correctPos.x, y, correctPos.y);
-            Debug.Log(worldPos);
+            Vector3 worldPos = new Vector3(sineWave.position.x, y, sineWave.position.y);
+
             Gizmos.DrawSphere(worldPos, 1.0f);
         }
     }
