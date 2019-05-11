@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class DungeonMaster : MonoBehaviour
 {
+    public static DungeonMaster Instance;
     enum GameState
     {
         Start,
@@ -23,16 +24,19 @@ public class DungeonMaster : MonoBehaviour
     private GameState gameState;
     [SerializeField] private uint TimeStart;
     [SerializeField] private uint TimeWaveDuration;
+    [SerializeField] private uint TimePause;
     private int timer;
+    private int currentNumberOfEnemies;
 
 
     private void Awake()
     {
         gameState = GameState.Start;
         currentWave = 0;
+        currentNumberOfEnemies = 0;
     }
 
-    IEnumerator StartFirstWave(uint TimeStart)
+    IEnumerator CORStartNewWave(uint TimeStart)
     {
         yield return new WaitForSeconds(TimeStart);
         StartNewWave();
@@ -41,7 +45,7 @@ public class DungeonMaster : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(StartFirstWave(TimeStart));
+        StartCoroutine(CORStartNewWave(TimeStart));
     }
 
     // Update is called once per frame
@@ -72,5 +76,20 @@ public class DungeonMaster : MonoBehaviour
     private void EndCurrentWave()
     {
         gameState = GameState.Idle;
+    }
+
+    public void RegisterEnemyBorn()
+    {
+        ++currentNumberOfEnemies;
+    }
+    
+    public void RegisterEnemyKilled()
+    {
+        --currentNumberOfEnemies;
+        if (currentNumberOfEnemies <= 0)
+        {
+            EndCurrentWave();
+            StartCoroutine(CORStartNewWave(TimePause));
+        }
     }
 }
