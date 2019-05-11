@@ -78,15 +78,19 @@ public class GunShooting : Photon.MonoBehaviour {
         // Only call when is the client itself
         if (photonView.isMine) {
             shootRay = Camera.main.ScreenPointToRay(new Vector3((Screen.width * 0.5f), (Screen.height * 0.5f), 0f));
-            if (Physics.Raycast(shootRay, out shootHit, range, shootableMask)) {
+            if (Physics.Raycast(shootRay, out shootHit, range, shootableMask))
+            {
+                if (!shootHit.collider) return; //no collider no fun
                 switch (shootHit.transform.gameObject.tag) {
                 case "Player":
-                        cc.GenerateConviction(false, damagePerShot);
-                    shootHit.collider.GetComponent<PhotonView>().RPC("TakeDamage", PhotonTargets.All, (int)(damagePerShot * dmgMulti.value), PhotonNetwork.player.NickName);
+                    cc.GenerateConviction(false, damagePerShot);
+                    PhotonView p = shootHit.collider.GetComponent<PhotonView>();
+                    if(p)p.RPC("TakeDamage", PhotonTargets.All, (int)(damagePerShot * dmgMulti.value), PhotonNetwork.player.NickName);
                     PhotonNetwork.Instantiate("impacts/impactFlesh", shootHit.point, Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
                     break;
                 case "Enemy":
-                    shootHit.collider.GetComponent<PhotonView>().RPC("TakeDamage", PhotonTargets.All, damagePerShot, photonView.owner.NickName);
+                    PhotonView p2 = shootHit.collider.GetComponent<PhotonView>();
+                    if(p2)p2.RPC("TakeDamage", PhotonTargets.All, damagePerShot, photonView.owner.NickName);
                     PhotonNetwork.Instantiate("impacts/impactFlesh", shootHit.point, Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
                     break;
                     case "Metal":
