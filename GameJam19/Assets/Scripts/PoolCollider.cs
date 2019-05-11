@@ -21,4 +21,9 @@ public class PoolCollider : MonoBehaviour
     {
         WaveMesh.Instance().Splash(other.transform.position, 1);
     }
+
+    /*private void OnParticleCollision(GameObject other)
+    {
+        WaveMesh.Instance().Splash(other.transform.position, 1);
+    }*/
 }
