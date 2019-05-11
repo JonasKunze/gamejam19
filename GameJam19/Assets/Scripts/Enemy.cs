@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
         var enemy = Instantiate(prefab).GetComponent<Enemy>();
         enemy.transform.position = wayPoints[0].transform.position;
         enemy.wayPoints = wayPoints;
+        DungeonMaster.Instance.RegisterEnemyBorn();
         return enemy;
     }
 
@@ -50,6 +51,7 @@ public class Enemy : MonoBehaviour
 
     private void LastWaypointReached()
     {
+        DungeonMaster.Instance.RegisterEnemyKilled();
         Destroy(gameObject);
     }
 
