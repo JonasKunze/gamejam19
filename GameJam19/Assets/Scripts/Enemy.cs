@@ -12,8 +12,7 @@ public class Enemy : MonoBehaviour
     private float waypointSize = 0.5f;
     private Vector3 currentTarget;
 
-    [SerializeField] [Range(0, 10)] private float maxVelocity;
-
+    [SerializeField] [Range(0.1f, 10)] private float maxVelocity;
 
     public static Enemy Create(GameObject prefab, WayPoint[] wayPoints)
     {
@@ -46,11 +45,7 @@ public class Enemy : MonoBehaviour
         }
 
         rigid.velocity = maxVelocity * toNextWaypoint.normalized;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawRay(transform.position, transform.position+GetNextWaypointDelta().normalized);
+        transform.forward = Vector3.ProjectOnPlane(toNextWaypoint, Vector3.up).normalized;
     }
 
     private void LastWaypointReached()
