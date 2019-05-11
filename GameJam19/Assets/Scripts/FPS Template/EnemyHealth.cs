@@ -2,11 +2,12 @@
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.Serialization;
 
 public class EnemyHealth : Photon.MonoBehaviour {
 
 	public int startingHealth = 10;
-	int currentHealth;
+	public int currentHealth;
 	public float sinkSpeed = 0.12f;
 	public AudioClip deathClip;
 	public AudioClip hurtClip;
@@ -17,20 +18,20 @@ public class EnemyHealth : Photon.MonoBehaviour {
 	private AudioSource audioSource;
 	private CapsuleCollider capsuleCollider;
 	//private IKControl ikControl;
-	private bool isSinking;
+	[FormerlySerializedAs("isSinking")] public bool isDead;
 	private bool damaged;
 
 	// Called when script awake in editor
 	void Awake() {
 		audioSource = GetComponent<AudioSource>();
-		capsuleCollider = GetComponent<CapsuleCollider>();
+		capsuleCollider = GetComponentInChildren<CapsuleCollider>();
 		currentHealth = startingHealth;
 	}
 
 	// Update is called once per frame
 	void Update() {
 
-		if (isSinking)
+		if (isDead)
 		{
 			transform.localScale = Vector3.one * Mathf.Lerp(transform.localScale.x, 0.1f, 0.1f);
 			transform.Translate(Vector3.down * sinkSpeed * Time.deltaTime);
@@ -86,7 +87,7 @@ public class EnemyHealth : Photon.MonoBehaviour {
             EnemyManager.deadPepegas.Enqueue(gameObject);
             capsuleCollider.isTrigger = false;
             GetComponent<Rigidbody>().isKinematic = false;
-            isSinking = false;
+            isDead = false;
             gameObject.SetActive(false);
             currentHealth = startingHealth;
         } else {
@@ -100,7 +101,7 @@ public class EnemyHealth : Photon.MonoBehaviour {
 	IEnumerator StartSinking(float time) {
 		yield return new WaitForSeconds(time);
 		GetComponent<Rigidbody>().isKinematic = true;
-		isSinking = true;
+		isDead = true;
         StartCoroutine(DestroyEnemyObject(2f));
 	}
 
