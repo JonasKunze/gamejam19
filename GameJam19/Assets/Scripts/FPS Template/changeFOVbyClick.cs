@@ -11,13 +11,14 @@ public class changeFOVbyClick : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		cam = Camera.main;
+		if (!cam) return;
 		startFOV=cam.fieldOfView;
 		lerpto = startFOV;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
+		if (!cam) return;
 
 		lerpto=Mathf.Lerp(lerpto,startFOV,lerpstrengh);
 
