@@ -65,6 +65,14 @@ public class WaveMesh : MonoBehaviour
         if (waveMesh)
             waveMesh.Splash(new Vector3(0,0, 7), 1);
     }
+    
+    [MenuItem("Debug/Splash %u")]
+    static void DoSomethingElse()
+    {
+        var shpere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        shpere.AddComponent<Rigidbody>();
+        shpere.transform.position = new Vector3(UnityEngine.Random.Range(0f, 0.01f),10, 7);
+    }
 
     public static WaveMesh Instance()
     {

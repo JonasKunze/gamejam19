@@ -17,7 +17,7 @@ public class PoolCollider : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         WaveMesh.Instance().Splash(other.transform.position, 1);
     }
