@@ -11,6 +11,8 @@ public class EnemyHealth : Photon.MonoBehaviour {
 	public float sinkSpeed = 0.12f;
 	public AudioClip deathClip;
 	public AudioClip hurtClip;
+
+	public Scrollbar HealthDisplay;
     //public Animator anim;
 
     public int karmaValue = 5;
@@ -52,7 +54,8 @@ public class EnemyHealth : Photon.MonoBehaviour {
 			audioSource.clip = hurtClip;
 			audioSource.Play();
 		}
-		
+
+		if (HealthDisplay && startingHealth !=0) HealthDisplay.size = currentHealth / startingHealth;
 		if (currentHealth <= 0) {
             photonView.RPC("Death", PhotonTargets.All, enemyName);
 		}
