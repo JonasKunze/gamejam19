@@ -77,6 +77,7 @@ public class DungeonMaster : MonoBehaviour
     private void EndCurrentWave()
     {
         gameState = GameState.Idle;
+        Shop.OpenShopCanvas();
     }
 
     public void RegisterEnemyBorn()
