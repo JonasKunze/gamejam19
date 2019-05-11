@@ -31,6 +31,7 @@ public class DungeonMaster : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         gameState = GameState.Start;
         currentWave = 0;
         currentNumberOfEnemies = 0;
