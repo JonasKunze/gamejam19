@@ -31,8 +31,8 @@ public class WaveMesh : MonoBehaviour
     private MeshFilter meshFilter;
 
     private Vector3[] vertices;
-    
-    
+
+
     [Serializable]
     public struct SineSourceInfo
     {
@@ -57,28 +57,30 @@ public class WaveMesh : MonoBehaviour
     [SerializeField] private List<SineSourceInfo> sineWaves;
 
     private static WaveMesh instance;
-    
+
+#if UNITY_EDITOR
     [MenuItem("Debug/Splash %t")]
     static void DoSomething()
     {
         WaveMesh waveMesh = WaveMesh.Instance();
         if (waveMesh)
-            waveMesh.Splash(new Vector3(0,0, 7), 1);
+            waveMesh.Splash(new Vector3(0, 0, 7), 1);
     }
-    
+
     [MenuItem("Debug/Splash %u")]
     static void DoSomethingElse()
     {
         var shpere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         shpere.AddComponent<Rigidbody>();
-        shpere.transform.position = new Vector3(UnityEngine.Random.Range(0f, 0.01f),10, 7);
+        shpere.transform.position = new Vector3(UnityEngine.Random.Range(0f, 0.01f), 10, 7);
     }
+#endif
 
     public static WaveMesh Instance()
     {
         return instance;
     }
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -165,7 +167,6 @@ public class WaveMesh : MonoBehaviour
 
         meshFilter.sharedMesh.RecalculateNormals();
         meshFilter.sharedMesh.RecalculateBounds();
-
     }
 
     // Update is called once per frame
@@ -274,7 +275,6 @@ public class WaveMesh : MonoBehaviour
         meshFilter.mesh.RecalculateNormals();
     }
 
-    
 
     private Vector2Int WorldPositionToMeshIndices(Vector3 worldPosition)
     {
@@ -298,38 +298,38 @@ public class WaveMesh : MonoBehaviour
 
     private void extendedStomp(Vector2 position, float amplitudeFactor = 1)
     {
-        float betterStomplitude = 2; 
-        
+        float betterStomplitude = 2;
+
         List<Vector2> stompPositions = new List<Vector2>();
         //stompPositions.Add(new Vector2(position.x, position.y));
-        stompPositions.Add(new Vector2(position.x+1, position.y));
-        stompPositions.Add(new Vector2(position.x-1, position.y));
-        stompPositions.Add(new Vector2(position.x, position.y+1));
-        stompPositions.Add(new Vector2(position.x, position.y-1));
+        stompPositions.Add(new Vector2(position.x + 1, position.y));
+        stompPositions.Add(new Vector2(position.x - 1, position.y));
+        stompPositions.Add(new Vector2(position.x, position.y + 1));
+        stompPositions.Add(new Vector2(position.x, position.y - 1));
 
         foreach (var stompPos in stompPositions)
         {
             if ((stompPos.x <= 0) || (stompPos.x >= xSize) || (stompPos.y <= 0) || (stompPos.y >= ySize))
                 continue;
-            setAmplitude((uint)stompPos.x, (uint)stompPos.y, betterStomplitude * amplitudeFactor);
+            setAmplitude((uint) stompPos.x, (uint) stompPos.y, betterStomplitude * amplitudeFactor);
         }
     }
-    
+
     Vector3 simpleStomp(Vector2 position, float amplitudeFactor = 1)
     {
-        float betterStomplitude = 5; 
+        float betterStomplitude = 5;
 
 //            Debug.LogError(indices);
 //        if ((indexX + 0 < 1) || (indexZ + 0 < 1) || (indexX + 0 > xSize - 2) || (indexZ + 0 > ySize - 2))
 //            Debug.Assert(false);
-        setAmplitude((uint)position.x, (uint)position.y, betterStomplitude * amplitudeFactor);
+        setAmplitude((uint) position.x, (uint) position.y, betterStomplitude * amplitudeFactor);
 
 
         //lastStompCenterIndices = new Vector2(indexX, indexZ);
         return new Vector3(-xSize / 2f + position.x, position.y, -ySize / 2f + position.y);
     }
-    
-    
+
+
     Vector3 stomp(Vector2 position, float amplitudeFactor = 1)
     {
         Vector2Int indices = WorldPositionToMeshIndices(position);
