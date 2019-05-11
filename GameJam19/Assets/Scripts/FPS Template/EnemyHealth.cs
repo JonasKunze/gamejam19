@@ -32,6 +32,7 @@ public class EnemyHealth : Photon.MonoBehaviour {
 		capsuleCollider = GetComponentInChildren<CapsuleCollider>();
 		sphereCollider =GetComponentInChildren<SphereCollider>();
 		currentHealth = startingHealth;
+		enemy = GetComponent<Enemy>();
 	}
 
 	// Update is called once per frame

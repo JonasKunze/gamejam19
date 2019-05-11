@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="$USER_HOME$/.Rider2019.1/system/extResources" t="IncludeRecursive" />
-    <e p="$USER_HOME$/.Rider2019.1/system/resharper-host/local/Transient/ReSharperHost/v191/SolutionCaches/_GameJam19.1727662213.00" t="ExcludeRecursive" />
-    <e p="$PROJECT_DIR$" t="IncludeRecursive">
+    <e p="C:\Users\APaterno\.Rider2018.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\APaterno\.Rider2018.3\system\resharper-host\Local\Transient\ReSharperHost\v183\SolutionCaches\_GameJam19.995382377.00" t="ExcludeRecursive" />
+    <e p="C:\Users\APaterno\Documents\gamejam19\gamejam19" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
@@ -43,6 +43,7 @@
         </e>
         <e p="NoodleActivator.cs" t="Include" />
         <e p="Photon Unity Networking" t="Include">
+          <e p="changelog.txt" t="Include" />
           <e p="Editor" t="Include">
             <e p="PhotonNetwork" t="Include">
               <e p="AccountService.cs" t="Include" />
@@ -64,6 +65,7 @@
               </e>
             </e>
           </e>
+          <e p="link.xml" t="Include" />
           <e p="Plugins" t="Include">
             <e p="PhotonNetwork" t="Include">
               <e p="CustomTypes.cs" t="Include" />
@@ -82,9 +84,9 @@
               <e p="PhotonStreamQueue.cs" t="Include" />
               <e p="PhotonView.cs" t="Include" />
               <e p="PingCloudRegions.cs" t="Include" />
-              <e p="RPC.cs" t="Include" />
               <e p="Room.cs" t="Include" />
               <e p="RoomInfo.cs" t="Include" />
+              <e p="RPC.cs" t="Include" />
               <e p="ServerSettings.cs" t="Include" />
               <e p="SocketUdp.cs" t="Include" />
               <e p="SocketWebTcp.cs" t="Include" />
@@ -102,11 +104,12 @@
               </e>
             </e>
           </e>
+          <e p="Readme.txt" t="Include" />
           <e p="UtilityScripts" t="Include">
             <e p="ConnectAndJoinRandom.cs" t="Include" />
             <e p="CullArea.cs" t="Include" />
-            <e p="InRoomChat.cs" t="Include" />
             <e p="InputToEvent.cs" t="Include" />
+            <e p="InRoomChat.cs" t="Include" />
             <e p="ManualPhotonViewAllocator.cs" t="Include" />
             <e p="MoveByKeys.cs" t="Include" />
             <e p="NetworkCullingHandler.cs" t="Include" />
@@ -139,9 +142,6 @@
               <e p="TextToggleIsOnTransition.cs" t="Include" />
             </e>
           </e>
-          <e p="changelog.txt" t="Include" />
-          <e p="link.xml" t="Include" />
-          <e p="readme.txt" t="Include" />
         </e>
         <e p="PhotonChatApi" t="Include">
           <e p="ChatChannel.cs" t="Include" />
@@ -217,13 +217,13 @@
                       <e p="IElementAdderMenuCommand.cs" t="Include" />
                     </e>
                     <e p="GenericListAdaptor.cs" t="Include" />
-                    <e p="IReorderableListAdaptor.cs" t="Include" />
-                    <e p="IReorderableListDropTarget.cs" t="Include" />
                     <e p="Internal" t="Include">
                       <e p="GUIHelper.cs" t="Include" />
                       <e p="ReorderableListResources.cs" t="Include" />
                       <e p="SerializedPropertyUtility.cs" t="Include" />
                     </e>
+                    <e p="IReorderableListAdaptor.cs" t="Include" />
+                    <e p="IReorderableListDropTarget.cs" t="Include" />
                     <e p="ReorderableListControl.cs" t="Include" />
                     <e p="ReorderableListEvents.cs" t="Include" />
                     <e p="ReorderableListFlags.cs" t="Include" />
@@ -249,10 +249,10 @@
               </e>
             </e>
           </e>
+          <e p="release_history.txt" t="Include" />
           <e p="WebSocket" t="Include">
             <e p="WebSocket.cs" t="Include" />
           </e>
-          <e p="release_history.txt" t="Include" />
         </e>
         <e p="Scripts" t="Include">
           <e p="DynamicBone" t="Include">
@@ -261,10 +261,14 @@
               <e p="DynamicBoneCollider.cs" t="Include" />
             </e>
           </e>
+          <e p="enemies" t="Include">
+            <e p="Zicke.cs" t="Include" />
+          </e>
           <e p="Enemy.cs" t="Include" />
           <e p="EnemySpawner.cs" t="Include" />
           <e p="EscIsQuit.cs" t="Include" />
           <e p="FPS Template" t="Include">
+            <e p="changeFOVbyClick.cs" t="Include" />
             <e p="ColTrigResponse.cs" t="Include" />
             <e p="ConvictionController.cs" t="Include" />
             <e p="EnemyAttack.cs" t="Include" />
@@ -272,6 +276,7 @@
             <e p="EnemyHealth.cs" t="Include" />
             <e p="EnemyKnuckles.cs" t="Include" />
             <e p="EnemyManager.cs" t="Include" />
+            <e p="fov_change_on_click.cs" t="Include" />
             <e p="FPS Basics" t="Include">
               <e p="CameraRotation.cs" t="Include" />
               <e p="DoorAnimation.cs" t="Include" />
@@ -288,17 +293,18 @@
               <e p="WeaponPos.cs" t="Include" />
             </e>
             <e p="Interactable.cs" t="Include" />
+            <e p="networkenabler.cs" t="Include" />
             <e p="Player.cs" t="Include" />
             <e p="PlayerInteraction.cs" t="Include" />
+            <e p="randomChildEnabler.cs" t="Include" />
             <e p="SceneCleaner.cs" t="Include" />
             <e p="Scriptables" t="Include">
+              <e p="activechild.cs" t="Include" />
               <e p="GameEvent.cs" t="Include" />
               <e p="GameEventListener.cs" t="Include" />
               <e p="SOChangeStartAndAwake.cs" t="Include" />
               <e p="StringArray.cs" t="Include" />
               <e p="StringVar.cs" t="Include" />
-              <e p="ValueListener.cs" t="Include" />
-              <e p="activechild.cs" t="Include" />
               <e p="structure" t="Include">
                 <e p="Container.cs" t="Include" />
                 <e p="FloatRef.cs" t="Include" />
@@ -312,6 +318,7 @@
               </e>
               <e p="textsetter.cs" t="Include" />
               <e p="timerSO.cs" t="Include" />
+              <e p="ValueListener.cs" t="Include" />
               <e p="writeInSO.cs" t="Include" />
             </e>
             <e p="Shot.cs" t="Include" />
@@ -319,6 +326,7 @@
             <e p="TerrainManager.cs" t="Include" />
             <e p="Testing.cs" t="Include" />
             <e p="TreeInteractable.cs" t="Include" />
+            <e p="trytosetweapon.cs" t="Include" />
             <e p="Tutorial.cs" t="Include" />
             <e p="Weapon" t="Include">
               <e p="WeaponChange.cs" t="Include" />
@@ -326,11 +334,6 @@
               <e p="WeaponUpd.cs" t="Include" />
             </e>
             <e p="WorldBoundaries.cs" t="Include" />
-            <e p="changeFOVbyClick.cs" t="Include" />
-            <e p="fov_change_on_click.cs" t="Include" />
-            <e p="networkenabler.cs" t="Include" />
-            <e p="randomChildEnabler.cs" t="Include" />
-            <e p="trytosetweapon.cs" t="Include" />
           </e>
           <e p="HealthDisplay.cs" t="Include" />
           <e p="ParticleCreator.cs" t="Include" />
@@ -339,9 +342,6 @@
           <e p="WaterBeam.cs" t="Include" />
           <e p="WaveMesh.cs" t="Include" />
           <e p="WayPoint.cs" t="Include" />
-          <e p="enemies" t="Include">
-            <e p="Zicke.cs" t="Include" />
-          </e>
         </e>
         <e p="Shop.cs" t="Include" />
         <e p="Standard Assets" t="Include">
@@ -532,10 +532,10 @@
             <e p="DragRigidbody.cs" t="Include" />
             <e p="DynamicShadowSettings.cs" t="Include" />
             <e p="EventSystemChecker.cs" t="Include" />
-            <e p="FOVKick.cs" t="Include" />
-            <e p="FPSCounter.cs" t="Include" />
             <e p="FollowTarget.cs" t="Include" />
             <e p="ForcedReset.cs" t="Include" />
+            <e p="FOVKick.cs" t="Include" />
+            <e p="FPSCounter.cs" t="Include" />
             <e p="LerpControlledBob.cs" t="Include" />
             <e p="ObjectResetter.cs" t="Include" />
             <e p="ParticleSystemDestroyer.cs" t="Include" />
@@ -554,8 +554,8 @@
               <e p="Scripts" t="Include">
                 <e p="AeroplaneAiControl.cs" t="Include" />
                 <e p="AeroplaneAudio.cs" t="Include" />
-                <e p="AeroplaneControlSurfaceAnimator.cs" t="Include" />
                 <e p="AeroplaneController.cs" t="Include" />
+                <e p="AeroplaneControlSurfaceAnimator.cs" t="Include" />
                 <e p="AeroplanePropellerAnimator.cs" t="Include" />
                 <e p="AeroplaneUserControl2Axis.cs" t="Include" />
                 <e p="AeroplaneUserControl4Axis.cs" t="Include" />
@@ -587,9 +587,12 @@
         </e>
       </e>
       <e p="GameJam19.sln" t="IncludeFlat" />
-      <e p="Temp/bin" t="ExcludeRecursive" />
+      <e p="Library" t="ExcludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="packages" t="ExcludeRecursive" />
+      <e p="Temp" t="ExcludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+      </e>
     </e>
   </component>
 </project>

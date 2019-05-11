@@ -6,7 +6,7 @@ using UnityEngine;
 public class Weapon : ScriptableObject {
 	
 	public int id;
-	public float damage=20, AtkPerSec=5, range=100;
+	public float damage=1, AtkPerSec=5, range=100;
 	public AudioClip[] firesounds;
 	public GameObject SpawnThisOnShot;
 
