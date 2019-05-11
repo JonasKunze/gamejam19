@@ -44,13 +44,15 @@ public class DungeonMaster : MonoBehaviour
     void Start()
     {
         gameState = GameState.Start;
-        // TODO Show Start Screen
+        
         StartCoroutine(CORStartNewWave(TimeStart));
     }
 
     IEnumerator CORStartNewWave(uint TimeStart)
     {
-        yield return new WaitForSeconds(TimeStart);
+            yield return new WaitForSeconds(TimeStart);
+            while (!PhotonNetwork.inRoom)
+                yield return 0;
         StartNewWave();
     }
 
