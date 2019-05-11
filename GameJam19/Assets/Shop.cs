@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,11 +20,17 @@ public class Shop : MonoBehaviour
         Instance().canvas.gameObject.SetActive(true);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         Debug.Assert(instance == null);
         instance = this;
+        Instance().canvas.gameObject.SetActive(false);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
     }
 
     public static Shop Instance()
