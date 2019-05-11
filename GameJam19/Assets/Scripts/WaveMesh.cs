@@ -155,8 +155,9 @@ public class WaveMesh : MonoBehaviour
         meshFilter.sharedMesh.triangles = triangles;
         meshFilter.sharedMesh.uv = uvCoords;
 
-        meshFilter.sharedMesh.RecalculateBounds();
         meshFilter.sharedMesh.RecalculateNormals();
+        meshFilter.sharedMesh.RecalculateBounds();
+
     }
 
     // Update is called once per frame
