@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.PlayerLoop;
+using Random = System.Random;
 
 public class WaveMesh : MonoBehaviour
 {
@@ -163,13 +164,12 @@ public class WaveMesh : MonoBehaviour
                 continue;
             }
 
-            Vector2Int indices = WorldPositionToIndex(new Vector2(sineWave.position.x, sineWave.position.y), xSize,
-                ySize, new Vector2(scaleX, scaleY));
+            Vector2Int indices = WorldPositionToMeshIndices(new Vector2(sineWave.position.x, sineWave.position.y));
             //uint indexX = (uint) sineWave.position.x;
             //uint indexZ = (uint) sineWave.position.y;
             float amplitude = sineWave.amplitude *
                               Mathf.Sin(sineWave.frequency * (sineWave.currentTime - sineWave.startTime));
-            setAmplitude((uint)indices.x, (uint)indices.y, amplitude);
+            setAmplitude((uint) indices.x, (uint) indices.y, amplitude);
             sineWaves[i] = sineWave;
         }
 
@@ -244,47 +244,61 @@ public class WaveMesh : MonoBehaviour
         meshFilter.mesh.RecalculateNormals();
     }
 
+    
+
+    private Vector2Int WorldPositionToMeshIndices(Vector2 worldPosition)
+    {
+        int x = (int) (worldPosition.x / scaleX + xSize / 2.0f);
+        int y = (int) (worldPosition.y / scaleY + ySize / 2.0f);
+
+        x = (int) Mathf.Clamp(x, 0, xSize - 1);
+        y = (int) Mathf.Clamp(y, 0, ySize - 1);
+
+        return new Vector2Int(x, y);
+    }
+
+    public void Splash(Vector3 worldPosition, float intensity)
+    {
+        intensity = Mathf.Clamp01(intensity);
+        simpleStomp(worldPosition, intensity);
+    }
+
+    Vector3 simpleStomp(Vector2 position, float amplitudeFactor = 1)
+    {
+        Vector2 indices = WorldPositionToMeshIndices(position);
+        float betterStomplitude = 10; 
+
+            Debug.LogError(indices);
+//        if ((indexX + 0 < 1) || (indexZ + 0 < 1) || (indexX + 0 > xSize - 2) || (indexZ + 0 > ySize - 2))
+//            Debug.Assert(false);
+        setAmplitude((uint)indices.x, (uint)indices.y, betterStomplitude * amplitudeFactor);
+
+
+        //lastStompCenterIndices = new Vector2(indexX, indexZ);
+        return new Vector3(-xSize / 2f + indices.x, position.y, -ySize / 2f + indices.y);
+    }
+    
+    
     Vector3 stomp(Vector2 position, float amplitudeFactor = 1)
     {
-        uint indexX = (uint) (position.x + xSize / 2.0f);
-        uint indexZ = (uint) (position.y + ySize / 2.0f);
+        Vector2Int indices = WorldPositionToMeshIndices(position);
 
         for (int x = -4; x < 5; x++)
         {
             for (int y = -4; y < 5; y++)
             {
-                if ((indexX + x < 1) || (indexZ + y < 1) || (indexX + x > xSize - 2) || (indexZ + y > ySize - 2))
+                if ((indices.x + x < 1) || (indices.y + y < 1) || (indices.x + x > xSize - 2) ||
+                    (indices.y + y > ySize - 2))
                     continue;
                 var r = Mathf.Sqrt(x * x + y * y);
                 if (Mathf.Abs(r - 4) < 0.5)
-                    setAmplitude((uint) (indexX + x), (uint) (indexZ + y), stomplitude * amplitudeFactor);
+                    setAmplitude((uint) (indices.x + x), (uint) (indices.y + y), stomplitude * amplitudeFactor);
             }
         }
 
         //lastStompCenterIndices = new Vector2(indexX, indexZ);
-        return new Vector3(-xSize / 2 + indexX, position.y, -ySize / 2 + indexZ);
+        return new Vector3(-xSize / 2 + indices.x, position.y, -ySize / 2 + indices.y);
     }
-
-    private static Vector2Int WorldPositionToIndex(Vector2 pos, uint sizeX, uint sizeY, Vector2 scale)
-    {
-        return new Vector2Int((int)(pos.x / scale.x + sizeX / 2.0f), (int)(pos.y / scale.y + sizeY / 2.0f));
-    }
-
-    /*Vector3 simpleStomp(Vector2 position, float amplitudeFactor = 1)
-    {
-        Vector2 correctPos = GetCorrectPosition(position, xSize, ySize);
-        uint indexX = (uint) correctPos.x;
-        uint indexZ = (uint) correctPos.y;
-
-
-        if ((indexX + 0 < 1) || (indexZ + 0 < 1) || (indexX + 0 > xSize - 2) || (indexZ + 0 > ySize - 2))
-            Debug.Assert(false);
-        setAmplitude(indexX, indexZ, stomplitude * amplitudeFactor);
-
-
-        //lastStompCenterIndices = new Vector2(indexX, indexZ);
-        return new Vector3(-xSize / 2 + indexX, position.y, -ySize / 2 + indexZ);
-    }*/
 
     /*private void StartSineSource(Vector2 position, float amplitude, float frequency, float timeSeconds, bool isInfinite)
     {
