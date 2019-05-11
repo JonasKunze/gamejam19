@@ -16,8 +16,9 @@ public class Enemy : MonoBehaviour
 
     public static Enemy Create(GameObject prefab, WayPoint[] wayPoints)
     {
-        var enemy = Instantiate(prefab).GetComponent<Enemy>();
-        enemy.transform.position = wayPoints[0].transform.position;
+        Enemy enemy = PhotonNetwork.Instantiate(prefab.name,
+            wayPoints[0].transform.position,
+            Quaternion.identity, 0).GetComponent<Enemy>();
         enemy.wayPoints = wayPoints;
         DungeonMaster.Instance.RegisterEnemyBorn();
         return enemy;

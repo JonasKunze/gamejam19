@@ -81,7 +81,7 @@ public class EnemyHealth : Photon.MonoBehaviour {
             }
         }
 
-		StartCoroutine("StartSinking", 2.5f);
+		StartCoroutine("StartSinking", 0f);
 	}
 
 
