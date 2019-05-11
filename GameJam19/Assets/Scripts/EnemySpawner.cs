@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Utility;
 
 namespace DefaultNamespace
 {
     public class EnemySpawner: MonoBehaviour
     {
-        [SerializeField] private Transform[] wayPoints;
+        [SerializeField] private WayPoint[] wayPoints;
         [SerializeField] private List<GameObject> enemies;
 
         private void Start()

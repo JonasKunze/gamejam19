@@ -1,39 +1,33 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Enemy : MonoBehaviour
 {
-    private Transform[] wayPoints;
+    private WayPoint[] wayPoints;
     private Rigidbody rigid;
     private int currentWayPoint;
 
-    private float waypointSize = 1;
+    private float waypointSize = 0.5f;
+    private Vector3 currentTarget;
 
-    [SerializeField] [Range(0, 10)] private float maxVelocity;
+    [SerializeField] [Range(0.1f, 10)] private float maxVelocity;
 
-
-    public static Enemy Create(GameObject prefab, Transform[] wayPoints)
+    public static Enemy Create(GameObject prefab, WayPoint[] wayPoints)
     {
         var enemy = Instantiate(prefab).GetComponent<Enemy>();
-        enemy.transform.position = wayPoints[0].position;
+        enemy.transform.position = wayPoints[0].transform.position;
         enemy.wayPoints = wayPoints;
         return enemy;
     }
 
-    private void Awake()
+    private void Start()
     {
         rigid = GetComponent<Rigidbody>();
+        currentTarget = wayPoints[0].GetRandomTargetPosition();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
     void Update()
     {
         var toNextWaypoint = GetNextWaypointDelta();
@@ -46,10 +40,12 @@ public class Enemy : MonoBehaviour
                 return;
             }
 
+            currentTarget = wayPoints[currentWayPoint].GetRandomTargetPosition();
             toNextWaypoint = GetNextWaypointDelta();
         }
 
         rigid.velocity = maxVelocity * toNextWaypoint.normalized;
+        transform.forward = Vector3.ProjectOnPlane(toNextWaypoint, Vector3.up).normalized;
     }
 
     private void LastWaypointReached()
@@ -59,6 +55,6 @@ public class Enemy : MonoBehaviour
 
     private Vector3 GetNextWaypointDelta()
     {
-        return wayPoints[currentWayPoint].position - transform.position;
+        return currentTarget - transform.position;
     }
 }
