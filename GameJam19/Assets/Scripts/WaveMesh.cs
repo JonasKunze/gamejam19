@@ -29,6 +29,9 @@ public class WaveMesh : MonoBehaviour
     private Mesh mesh;
     private MeshFilter meshFilter;
 
+    private Vector3[] vertices;
+    
+    
     [Serializable]
     public struct SineSourceInfo
     {
@@ -61,15 +64,6 @@ public class WaveMesh : MonoBehaviour
         {
             sineWave.Init(xSize, ySize);
         }
-
-        /*for (int i = 0; i < numberOfWaves; i++)
-        {
-            int randX = Random.Range(-(int) ((xSize - 5) / 2), (int) ((xSize - 5) / 2));
-            int randY = Random.Range(-(int) ((ySize - 5) / 2), (int) ((ySize - 5) / 2));
-            float randAmplitude = Random.Range(0.1f, 0.5f);
-            //simpleStomp(new Vector2(randX, randY), randAmplitude);
-            StartSineSource(new Vector2(randX, randY), stomplitude, frequency, 60);
-        }*/
     }
 
     public void CreateMesh()
@@ -88,21 +82,23 @@ public class WaveMesh : MonoBehaviour
             nextAmplitudes[i] = 0.0f;
             velocities[i] = 0.0f;
         }
-
+        
         initMesh();
     }
 
     private void initMesh()
     {
-        var vertices = new Vector3[xSize * ySize];
+        vertices = new Vector3[xSize * ySize];
         var triangles = new int[6 * (xSize - 1) * (ySize - 1)];
         var uvCoords = new Vector2[xSize * ySize];
+        
         for (uint x = 0; x < xSize; x++)
         {
             for (uint y = 0; y < ySize; y++)
             {
                 vertices[x * ySize + y] = new Vector3((x - xSize / 2.0f) * scaleX, currentAmplitudes[x * ySize + y],
                     (y - ySize / 2.0f) * scaleY);
+                
                 uvCoords[x * ySize + y] = new Vector2(x / (float) xSize, y / (float) ySize);
             }
         }
@@ -165,8 +161,7 @@ public class WaveMesh : MonoBehaviour
             }
 
             Vector2Int indices = WorldPositionToMeshIndices(new Vector2(sineWave.position.x, sineWave.position.y));
-            //uint indexX = (uint) sineWave.position.x;
-            //uint indexZ = (uint) sineWave.position.y;
+
             float amplitude = sineWave.amplitude *
                               Mathf.Sin(sineWave.frequency * (sineWave.currentTime - sineWave.startTime));
             setAmplitude((uint) indices.x, (uint) indices.y, amplitude);
@@ -227,8 +222,6 @@ public class WaveMesh : MonoBehaviour
 
     private void updateMesh()
     {
-        var vertices = new Vector3[xSize * ySize];
-
         for (uint x = 0; x < xSize; x++)
         {
             for (uint y = 0; y < ySize; y++)
@@ -238,13 +231,12 @@ public class WaveMesh : MonoBehaviour
             }
         }
 
-        //meshFilter.mesh.Clear();
         meshFilter.mesh.vertices = vertices;
+        
         meshFilter.mesh.RecalculateBounds();
         meshFilter.mesh.RecalculateNormals();
     }
 
-    
 
     private Vector2Int WorldPositionToMeshIndices(Vector2 worldPosition)
     {
