@@ -293,7 +293,7 @@ public class WaveMesh : MonoBehaviour
         Vector2 indices = WorldPositionToMeshIndices(worldPosition);
         extendedStomp(indices, intensity);
         worldPosition.y = transform.position.y;
-        ParticleCreator.Instance().Splash(worldPosition);
+        ParticleCreator.Instance().Splash(worldPosition, intensity);
     }
 
     private void extendedStomp(Vector2 position, float amplitudeFactor = 1)

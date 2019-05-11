@@ -7,6 +7,7 @@ using UnityEngine.Assertions;
 public class ParticleCreator : MonoBehaviour
 {
     public GameObject waterParticles;
+    public GameObject smallWaterParticles;
 
     private static ParticleCreator instance;
     
@@ -21,8 +22,15 @@ public class ParticleCreator : MonoBehaviour
         return instance;
     }
 
-    public void Splash(Vector3 position)
+    public void Splash(Vector3 position, float intensity)
     {
-        Instantiate(waterParticles, position, waterParticles.transform.rotation);
+        if (intensity < 0.5f)
+        {
+            Instantiate(smallWaterParticles, position, waterParticles.transform.rotation);
+        }
+        else
+        {
+            Instantiate(waterParticles, position, waterParticles.transform.rotation);
+        }
     }
 }
