@@ -62,13 +62,13 @@ public class GunShooting : Photon.MonoBehaviour {
     void Shoot() {
         timer = 0.0f;
 
-        gunAudio.PlayOneShot(gunAudio.clip);
+        //gunAudio.PlayOneShot(gunAudio.clip);
 
         //if(weapn.firesounds.Length>0)gunAudio.PlayOneShot(weapn.firesounds[0]);
         //gunAudio.Play();
 
-        gunParticles.Stop();
-        gunParticles.Play();
+       // gunParticles.Stop();
+       // gunParticles.Play();
 
         // set weapon depending stuff:
         damagePerShot=(int) weapn.damage;
@@ -86,33 +86,33 @@ public class GunShooting : Photon.MonoBehaviour {
                     cc.GenerateConviction(false, damagePerShot);
                     PhotonView p = shootHit.collider.GetComponent<PhotonView>();
                     if(p)p.RPC("TakeDamage", PhotonTargets.All, (int)(damagePerShot * dmgMulti.value), PhotonNetwork.player.NickName);
-                    PhotonNetwork.Instantiate("impacts/impactFlesh", shootHit.point, Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
+                    //PhotonNetwork.Instantiate("impacts/impactFlesh", shootHit.point, Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
                     break;
                 case "Enemy":
                     PhotonView p2 = shootHit.collider.GetComponent<PhotonView>();
                     if(p2)p2.RPC("TakeDamage", PhotonTargets.All, damagePerShot, photonView.owner.NickName);
-                    PhotonNetwork.Instantiate("impacts/impactFlesh", shootHit.point, Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
+                    //PhotonNetwork.Instantiate("impacts/impactFlesh", shootHit.point, Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
                     break;
                     case "Metal":
-                    PhotonNetwork.Instantiate("impacts/impactMetal", shootHit.point, Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
+                    //PhotonNetwork.Instantiate("impacts/impactMetal", shootHit.point, Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
                     break;
                 case "Glass":
-                    PhotonNetwork.Instantiate("impacts/impactGlass", shootHit.point, Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
+                    //PhotonNetwork.Instantiate("impacts/impactGlass", shootHit.point, Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
                     break;
                 case "Wood":
-                    PhotonNetwork.Instantiate("impacts/impactWood", shootHit.point, Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
+                    //PhotonNetwork.Instantiate("impacts/impactWood", shootHit.point, Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
                     break;
                 case "Brick":
-                    PhotonNetwork.Instantiate("impacts/impactBrick", shootHit.point, Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
+                    //PhotonNetwork.Instantiate("impacts/impactBrick", shootHit.point, Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
                     break;
                 case "Concrete":
-                    PhotonNetwork.Instantiate("impacts/impactConcrete", shootHit.point, Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
+                    //PhotonNetwork.Instantiate("impacts/impactConcrete", shootHit.point, Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
                     break;
                 case "Dirt":
-                    PhotonNetwork.Instantiate("impacts/impactDirt", shootHit.point, Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
+                    //PhotonNetwork.Instantiate("impacts/impactDirt", shootHit.point, Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
                     break;
                 case "Water":
-                    PhotonNetwork.Instantiate("impacts/impactWater", shootHit.point, Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
+                    //PhotonNetwork.Instantiate("impacts/impactWater", shootHit.point, Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
                     break;
                 default:
                     break;
