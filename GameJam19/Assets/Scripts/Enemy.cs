@@ -83,7 +83,7 @@ public class Enemy : MonoBehaviour
             if (JumpAnim)
             {
                 JumpAnim.SetActive(true);
-                Invoke("StartSwimming", 2);
+                StartCoroutine(StartSwimming());
             }
             else
             {
@@ -92,8 +92,10 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void StartSwimming()
+    private IEnumerator StartSwimming()
     {
+        yield return new WaitForSeconds(2);
+        JumpAnim.SetActive(false);
         SwimAnim.SetActive(true);
     }
 
