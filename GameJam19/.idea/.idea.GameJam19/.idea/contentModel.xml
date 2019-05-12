@@ -157,98 +157,6 @@
         </e>
         <e p="Plugins" t="Include">
           <e p="Photon3Unity3D.xml" t="Include" />
-          <e p="RainbowFolders" t="Include">
-            <e p="Editor" t="Include">
-              <e p="Scripts" t="Include">
-                <e p="Helpers" t="Include">
-                  <e p="RainbowFoldersEditorUtility.cs" t="Include" />
-                </e>
-                <e p="Info" t="Include">
-                  <e p="AssetInfo.cs" t="Include" />
-                </e>
-                <e p="Menu" t="Include">
-                  <e p="Colors" t="Include">
-                    <e p="FolderColor.cs" t="Include" />
-                    <e p="FolderColorDrawer.cs" t="Include" />
-                    <e p="FolderColorName.cs" t="Include" />
-                    <e p="FolderColorsStorage.cs" t="Include" />
-                    <e p="FolderColorsStorageEditor.cs" t="Include" />
-                  </e>
-                  <e p="FolderIconPair.cs" t="Include" />
-                  <e p="Platforms" t="Include">
-                    <e p="FolderPlatform.cs" t="Include" />
-                    <e p="FolderPlatformDrawer.cs" t="Include" />
-                    <e p="FolderPlatformName.cs" t="Include" />
-                    <e p="FolderPlatformsStorage.cs" t="Include" />
-                    <e p="FolderPlatformsStorageEditor.cs" t="Include" />
-                  </e>
-                  <e p="RainbowFoldersContextMenu.cs" t="Include" />
-                  <e p="RainbowFoldersPresetsMenu.cs" t="Include" />
-                  <e p="Tags" t="Include">
-                    <e p="FolderTag.cs" t="Include" />
-                    <e p="FolderTagDrawer.cs" t="Include" />
-                    <e p="FolderTagName.cs" t="Include" />
-                    <e p="FolderTagsStorage.cs" t="Include" />
-                    <e p="FolderTagsStorageEditor.cs" t="Include" />
-                  </e>
-                  <e p="Types" t="Include">
-                    <e p="FolderType.cs" t="Include" />
-                    <e p="FolderTypeDrawer.cs" t="Include" />
-                    <e p="FolderTypeName.cs" t="Include" />
-                    <e p="FolderTypesStorage.cs" t="Include" />
-                    <e p="FolderTypesStorageEditor.cs" t="Include" />
-                  </e>
-                </e>
-                <e p="Prefs" t="Include">
-                  <e p="RainbowFoldersPreferences.cs" t="Include" />
-                </e>
-                <e p="RainbowFoldersBrowserIcons.cs" t="Include" />
-                <e p="ReorderableList" t="Include">
-                  <e p="Editor" t="Include">
-                    <e p="Element Adder Menu" t="Include">
-                      <e p="ElementAdderMenuBuilder.cs" t="Include" />
-                      <e p="ElementAdderMenuCommandAttribute.cs" t="Include" />
-                      <e p="ElementAdderMeta.cs" t="Include" />
-                      <e p="GenericElementAdderMenu.cs" t="Include" />
-                      <e p="GenericElementAdderMenuBuilder.cs" t="Include" />
-                      <e p="IElementAdder.cs" t="Include" />
-                      <e p="IElementAdderMenu.cs" t="Include" />
-                      <e p="IElementAdderMenuBuilder.cs" t="Include" />
-                      <e p="IElementAdderMenuCommand.cs" t="Include" />
-                    </e>
-                    <e p="GenericListAdaptor.cs" t="Include" />
-                    <e p="IReorderableListAdaptor.cs" t="Include" />
-                    <e p="IReorderableListDropTarget.cs" t="Include" />
-                    <e p="Internal" t="Include">
-                      <e p="GUIHelper.cs" t="Include" />
-                      <e p="ReorderableListResources.cs" t="Include" />
-                      <e p="SerializedPropertyUtility.cs" t="Include" />
-                    </e>
-                    <e p="ReorderableListControl.cs" t="Include" />
-                    <e p="ReorderableListEvents.cs" t="Include" />
-                    <e p="ReorderableListFlags.cs" t="Include" />
-                    <e p="ReorderableListGUI.cs" t="Include" />
-                    <e p="ReorderableListStyles.cs" t="Include" />
-                    <e p="SerializedPropertyAdaptor.cs" t="Include" />
-                  </e>
-                  <e p="Properties" t="Include">
-                    <e p="AssemblyInfo.cs" t="Include" />
-                  </e>
-                </e>
-                <e p="Settings" t="Include">
-                  <e p="RainbowFolder.cs" t="Include" />
-                  <e p="RainbowFolderDrawer.cs" t="Include" />
-                  <e p="RainbowFoldersSettings.cs" t="Include" />
-                  <e p="RainbowFoldersSettingsEditor.cs" t="Include" />
-                </e>
-                <e p="Windows" t="Include">
-                  <e p="DraggablePopupWindow.cs" t="Include" />
-                  <e p="RainbowFoldersPopup.cs" t="Include" />
-                  <e p="RainbowFoldersWelcome.cs" t="Include" />
-                </e>
-              </e>
-            </e>
-          </e>
           <e p="WebSocket" t="Include">
             <e p="WebSocket.cs" t="Include" />
           </e>
@@ -336,6 +244,7 @@
           <e p="ParticleCreator.cs" t="Include" />
           <e p="PoolCollider.cs" t="Include" />
           <e p="Pumpgun.cs" t="Include" />
+          <e p="TimedObjectActivator.cs" t="Include" />
           <e p="WaterBeam.cs" t="Include" />
           <e p="WaveMesh.cs" t="Include" />
           <e p="WayPoint.cs" t="Include" />
@@ -585,6 +494,7 @@
             </e>
           </e>
         </e>
+        <e p="audioplay.cs" t="Include" />
       </e>
       <e p="GameJam19.sln" t="IncludeFlat" />
       <e p="Temp/bin" t="ExcludeRecursive" />
