@@ -249,6 +249,7 @@
           <e p="WaveMesh.cs" t="Include" />
           <e p="WayPoint.cs" t="Include" />
           <e p="enemies" t="Include">
+            <e p="Dicke.cs" t="Include" />
             <e p="Zicke.cs" t="Include" />
           </e>
         </e>
