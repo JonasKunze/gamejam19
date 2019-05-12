@@ -62,10 +62,10 @@ public class GunShooting : Photon.MonoBehaviour {
     void Shoot() {
         timer = 0.0f;
 
-        //gunAudio.PlayOneShot(gunAudio.clip);
+        gunAudio.PlayOneShot(gunAudio.clip);
 
-        //if(weapn.firesounds.Length>0)gunAudio.PlayOneShot(weapn.firesounds[0]);
-        //gunAudio.Play();
+        if(weapn.firesounds.Length>0)gunAudio.PlayOneShot(weapn.firesounds[0]);
+        gunAudio.Play();
 
        // gunParticles.Stop();
        // gunParticles.Play();
