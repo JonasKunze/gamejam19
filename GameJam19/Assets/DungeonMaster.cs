@@ -138,8 +138,8 @@ public class DungeonMaster : MonoBehaviour
 
     private void StartShopppingTour()
     {
-        gameState = GameState.ShoppingTour;
-        Shop.OpenShopCanvas();
+      //  gameState = GameState.ShoppingTour;
+      //  Shop.OpenShopCanvas();
     }
 
     private void EndShopppingTour()
