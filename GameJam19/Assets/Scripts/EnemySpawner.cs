@@ -15,7 +15,7 @@ namespace DefaultNamespace
 
         IEnumerator Spawning(float waveDuration)
         {
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSeconds(delay);    
             float tMicroWaves = waveDuration / (nMicroWaves + 1);
             for (uint i = 0; i < nMicroWaves - 1; ++i){
                 foreach (var prefab in enemies)
