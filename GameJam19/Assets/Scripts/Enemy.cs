@@ -89,7 +89,8 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                StartSwimming();
+                WalkAnim.SetActive(false);
+                SwimAnim.SetActive(true);
             }
         }
     }
