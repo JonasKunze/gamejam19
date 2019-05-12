@@ -66,6 +66,7 @@ public class Enemy : MonoBehaviour
                 toNextWaypoint = GetNextWaypointDelta();
             }
 
+            if (rigid)
             rigid.velocity = maxVelocity * toNextWaypoint.normalized;
             transform.forward = Vector3.ProjectOnPlane(toNextWaypoint, Vector3.up).normalized;
         }
