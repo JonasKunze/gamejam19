@@ -29,7 +29,8 @@ public class DungeonMaster : MonoBehaviour
     [SerializeField] private uint TimeWaveDuration;
     [SerializeField] private uint TimePause;
     [SerializeField] private int HP = 10;
-
+    [SerializeField] private GameObject bus;
+    
 
     private uint currentWave;
     private int currentActiveSpawners;
@@ -73,6 +74,8 @@ public class DungeonMaster : MonoBehaviour
         }
 
         currentActiveSpawners = EnemySpawners.Length;
+        
+        Destroy(Instantiate(bus), 30);
     }
 
     private bool IsWaveDone()
