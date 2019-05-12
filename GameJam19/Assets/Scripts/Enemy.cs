@@ -17,6 +17,8 @@ public class Enemy : MonoBehaviour
 
     public float damageCadance = 1;
 
+    private Animator animator;
+
     [SerializeField] [Range(0.1f, 10)] protected float maxVelocity;
 
     public static Enemy Create(GameObject prefab, WayPoint[] wayPoints)
@@ -33,6 +35,7 @@ public class Enemy : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody>();
         currentTarget = wayPoints[0].GetRandomTargetPosition();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -42,6 +45,8 @@ public class Enemy : MonoBehaviour
             var toNextWaypoint = GetNextWaypointDelta();
             if (toNextWaypoint.magnitude < waypointSize)
             {
+                WaypointReached(wayPoints[currentWayPoint]);
+
                 currentWayPoint++;
                 if (currentWayPoint >= wayPoints.Length)
                 {
@@ -62,6 +67,14 @@ public class Enemy : MonoBehaviour
     private void OnDestroy()
     {
         DungeonMaster.Instance.RegisterEnemyKilled();
+    }
+
+    private void WaypointReached(WayPoint wp)
+    {
+        if (wp.type == WayPoint.WaypointType.WATER_BORDER)
+        {
+            //animator.SetTrigger("swim");
+        }
     }
 
     private void LastWaypointReached()
