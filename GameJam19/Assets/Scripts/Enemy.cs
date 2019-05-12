@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] [Range(0.1f, 10)] protected float maxVelocity;
 
     [SerializeField] private GameObject WalkAnim;
+    [SerializeField] private GameObject JumpAnim;
     [SerializeField] private GameObject SwimAnim;
 
     public static Enemy Create(GameObject prefab, WayPoint[] wayPoints)
@@ -38,7 +39,7 @@ public class Enemy : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody>();
         currentTarget = wayPoints[0].GetRandomTargetPosition();
-        
+
         WalkAnim.SetActive(true);
         SwimAnim.SetActive(false);
     }
@@ -79,8 +80,21 @@ public class Enemy : MonoBehaviour
         if (wp.type == WayPoint.WaypointType.WATER_BORDER && SwimAnim)
         {
             WalkAnim.SetActive(false);
-            SwimAnim.SetActive(true);
+            if (JumpAnim)
+            {
+                JumpAnim.SetActive(true);
+                Invoke("StartSwimming", 2);
+            }
+            else
+            {
+                StartSwimming();
+            }
         }
+    }
+
+    private void StartSwimming()
+    {
+        SwimAnim.SetActive(true);
     }
 
     private void LastWaypointReached()
