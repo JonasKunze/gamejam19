@@ -36,6 +36,8 @@ public class DungeonMaster : MonoBehaviour
     private int currentActiveSpawners;
     private int currentNumberOfEnemies;
 
+    public GameObject gameoverScreen,victoryScreen;
+
 
     private void Awake()
     {
@@ -149,13 +151,13 @@ public class DungeonMaster : MonoBehaviour
 
     private void Victory()
     {
-        // TODO Show Victory
         gameState = GameState.Victory;
+        victoryScreen.SetActive(true);
     }
 
     private void GameOver()
     {
-        // TODO Show GameOver
         gameState = GameState.GameOver;
+        gameoverScreen.SetActive(true);
     }
 }
