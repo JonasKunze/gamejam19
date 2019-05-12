@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,6 +12,10 @@ public class Enemy : MonoBehaviour
 
     private float waypointSize = 0.5f;
     private Vector3 currentTarget;
+
+    private bool isLastWaypointReached = false;
+
+    public float damageCadance = 1;
 
     [SerializeField] [Range(0.1f, 10)] protected float maxVelocity;
 
@@ -32,28 +37,45 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        var toNextWaypoint = GetNextWaypointDelta();
-        if (toNextWaypoint.magnitude < waypointSize)
+        if (!isLastWaypointReached)
         {
-            currentWayPoint++;
-            if (currentWayPoint == wayPoints.Length)
+            var toNextWaypoint = GetNextWaypointDelta();
+            if (toNextWaypoint.magnitude < waypointSize)
             {
-                LastWaypointReached();
-                return;
+                currentWayPoint++;
+                if (currentWayPoint >= wayPoints.Length)
+                {
+                    LastWaypointReached();
+                    isLastWaypointReached = true;
+                    return;
+                }
+
+                currentTarget = wayPoints[currentWayPoint].GetRandomTargetPosition();
+                toNextWaypoint = GetNextWaypointDelta();
             }
 
-            currentTarget = wayPoints[currentWayPoint].GetRandomTargetPosition();
-            toNextWaypoint = GetNextWaypointDelta();
+            rigid.velocity = maxVelocity * toNextWaypoint.normalized;
+            transform.forward = Vector3.ProjectOnPlane(toNextWaypoint, Vector3.up).normalized;
         }
+    }
 
-        rigid.velocity = maxVelocity * toNextWaypoint.normalized;
-        transform.forward = Vector3.ProjectOnPlane(toNextWaypoint, Vector3.up).normalized;
+    private void OnDestroy()
+    {
+        DungeonMaster.Instance.RegisterEnemyKilled();
     }
 
     private void LastWaypointReached()
     {
-        DungeonMaster.Instance.RegisterEnemyKilled();
-        Destroy(gameObject);
+        StartCoroutine(AttackCoro());
+    }
+
+    private IEnumerator AttackCoro()
+    {
+        while (this)
+        {
+            yield return new WaitForSeconds(damageCadance);
+            DungeonMaster.Instance.MakeDamage(1);
+        }
     }
 
     private Vector3 GetNextWaypointDelta()
@@ -63,6 +85,5 @@ public class Enemy : MonoBehaviour
 
     public virtual void OnDamageTaken()
     {
-        
     }
 }

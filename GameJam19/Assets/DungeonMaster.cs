@@ -9,6 +9,7 @@ using UnityEngine.Analytics;
 public class DungeonMaster : MonoBehaviour
 {
     public static DungeonMaster Instance;
+
     enum GameState
     {
         Init,
@@ -27,6 +28,9 @@ public class DungeonMaster : MonoBehaviour
     [SerializeField] private uint TimeStart;
     [SerializeField] private uint TimeWaveDuration;
     [SerializeField] private uint TimePause;
+    [SerializeField] private int HP = 10;
+
+
     private uint currentWave;
     private int currentActiveSpawners;
     private int currentNumberOfEnemies;
@@ -40,19 +44,19 @@ public class DungeonMaster : MonoBehaviour
         currentNumberOfEnemies = 0;
         currentActiveSpawners = 0;
     }
-    
+
     void Start()
     {
         gameState = GameState.Start;
-        
+
         StartCoroutine(CORStartNewWave(TimeStart));
     }
 
     IEnumerator CORStartNewWave(uint TimeStart)
     {
-            yield return new WaitForSeconds(TimeStart);
-            while (!PhotonNetwork.inRoom)
-                yield return 0;
+        yield return new WaitForSeconds(TimeStart);
+        while (!PhotonNetwork.inRoom)
+            yield return 0;
         StartNewWave();
     }
 
@@ -78,6 +82,13 @@ public class DungeonMaster : MonoBehaviour
         return ((currentActiveSpawners <= 0) && (currentNumberOfEnemies <= 0));
     }
 
+    public void MakeDamage(int damage)
+    {
+        HP -= damage;
+        if (HP <= 0)
+            RegisterPlayerDead();
+    }
+
     public void RegisterPlayerDead()
     {
         GameOver();
@@ -87,7 +98,7 @@ public class DungeonMaster : MonoBehaviour
     {
         ++currentNumberOfEnemies;
     }
-    
+
     public void RegisterEnemyKilled()
     {
         --currentNumberOfEnemies;
@@ -96,6 +107,7 @@ public class DungeonMaster : MonoBehaviour
             EndCurrentWave();
         }
     }
+
     public void RegisterSpawnerIsDone()
     {
         --currentActiveSpawners;
@@ -104,7 +116,7 @@ public class DungeonMaster : MonoBehaviour
             EndCurrentWave();
         }
     }
-    
+
     private void EndCurrentWave()
     {
         currentNumberOfEnemies = 0;
@@ -124,13 +136,14 @@ public class DungeonMaster : MonoBehaviour
         gameState = GameState.ShoppingTour;
         Shop.OpenShopCanvas();
     }
-    
+
     private void EndShopppingTour()
     {
         // TODO Called by canvas button
-        Shop.CloseShopCanvas(); 
+        Shop.CloseShopCanvas();
         StartNewWave();
     }
+
     private void Victory()
     {
         // TODO Show Victory
