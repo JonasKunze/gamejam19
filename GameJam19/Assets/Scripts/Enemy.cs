@@ -42,6 +42,7 @@ public class Enemy : MonoBehaviour
 
         WalkAnim.SetActive(true);
         SwimAnim.SetActive(false);
+        if(JumpAnim) JumpAnim.SetActive(false);
     }
 
     void Update()
